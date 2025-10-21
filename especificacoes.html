@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário de Transporte Corporativo</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <header class="header">
+            <h1>Pesquisa de Transporte nas Empresas</h1>
+            <p>Indicadores de Segurança Viária</p>
+        </header>
+
+        <main class="main-content">
+            <form id="pnatrans-form" class="form-container">
+
+                <div class="card-info intro-card">
+                    <h2>Formulário de Coleta</h2>
+                    <p>Preencha os campos abaixo para gerar seu plano de ação.</p>
+                </div>
+
+                <div id="questionnaire-container" class="questionnaire-container">
+
+                    <div class="question-block">
+                        <!-- transporte corporativo -->
+                        <h2 class="block-title">Transporte Corporativo</h2>
+
+                        <div class="question-group">
+                            <h4 class="question-title">A empresa utiliza veículo corporativo?</h4>
+                            <div class="radio-options">
+                                <label class="custom-option-label">
+                                    <input type="radio" name="q1_veiculo_corporativo" value="true" class="sr-only">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span class="option-text">Sim</span>
+                                </label>
+                                <label class="custom-option-label">
+                                    <input type="radio" name="q1_veiculo_corporativo" value="false" class="sr-only">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    <span class="option-text">Não</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- motorista profissional -->
+                        <div id="conditional-block-1" class="conditional-block dashed-border-top">
+
+                            <div class="question-group">
+                                <h4 class="question-title">O veículo corporativo é dirigido por motorista profissional?
+                                </h4>
+                                <div class="radio-options">
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q2_motorista_profissional" value="true"
+                                            class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="option-text">Sim</span>
+                                    </label>
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q2_motorista_profissional" value="false"
+                                            class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <span class="option-text">Não</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="conditional-block-2" class="conditional-block dashed-border-top">
+
+                                <h4 class="question-title">Quais tipos de veículo corporativo são utilizados por
+                                    motoristas profissionais?</h4>
+                                <p class="description-text">Responda Sim/Não para cada tipo de veículo listado abaixo:
+                                </p>
+
+                                <!-- uso de caminhão corporativo -->
+                                <div class="question-group">
+                                    <h4 class="question-title">Há uso de Caminhão? </h4>
+                                    <div class="radio-options">
+                                        <label class="custom-option-label">
+                                            <input type="radio" name="q3a_caminhao" value="true" class="sr-only">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span class="option-text">Sim</span>
+                                        </label>
+                                        <label class="custom-option-label">
+                                            <input type="radio" name="q3a_caminhao" value="false" class="sr-only">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                            <span class="option-text">Não</span>
+                                        </label>
+                                    </div>
+
+                                    <div id="sub-caminhao-block" class="conditional-block dashed-border-top">
+
+                                        <!-- camin cargas perigosas  -->
+                                        <div class="question-group-sub">
+                                            <h5 class="sub-question-title">O caminhão carrega Cargas Perigosas?</h5>
+                                            <div class="radio-options-sub">
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3aa_caminhao_cargas_perigosas"
+                                                        value="true" class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                    <span class="option-text">Sim</span>
+                                                </label>
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3aa_caminhao_cargas_perigosas"
+                                                        value="false" class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                    <span class="option-text">Não</span>
+                                                </label>
+                                            </div>
+
+                                            <!-- qtd cargas perig -->
+                                            <div class="input-field conditional-sub-input"
+                                                data-input-for="q3aa_caminhao_cargas_perigosas">
+                                                <label for="qtd_caminhao_perigosa">Caminhões Carga Perigosa <span
+                                                        class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                                <input type="number" id="qtd_caminhao_perigosa"
+                                                    name="qtd_caminhao_perigosa" placeholder="0" min="0">
+                                            </div>
+                                        </div>
+
+                                        <!-- camin cargas nao perig  -->
+                                        <div class="question-group-sub">
+                                            <h5 class="sub-question-title">O caminhão carrega Cargas Não Perigosas?
+                                            </h5>
+                                            <div class="radio-options-sub">
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3ab_caminhao_cargas_nao_perigosas"
+                                                        value="true" class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                    <span class="option-text">Sim</span>
+                                                </label>
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3ab_caminhao_cargas_nao_perigosas"
+                                                        value="false" class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                    <span class="option-text">Não</span>
+                                                </label>
+                                            </div>
+
+                                            <!-- qtd cargas nao perigosas -->
+                                            <div class="input-field conditional-sub-input"
+                                                data-input-for="q3ab_caminhao_cargas_nao_perigosas">
+                                                <label for="qtd_caminhao_nao_perigosa">Caminhões Carga Não Perigosa
+                                                    <span class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                                <input type="number" id="qtd_caminhao_nao_perigosa"
+                                                    name="qtd_caminhao_nao_perigosa" placeholder="0" min="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- uso de automóvel -->
+                                <div class="question-group">
+                                    <h4 class="question-title">Há uso de Automóvel? </h4>
+                                    <div class="radio-options">
+                                        <label class="custom-option-label">
+                                            <input type="radio" name="q3b_automovel" value="true" class="sr-only">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span class="option-text">Sim</span>
+                                        </label>
+                                        <label class="custom-option-label">
+                                            <input type="radio" name="q3b_automovel" value="false" class="sr-only">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                            <span class="option-text">Não</span>
+                                        </label>
+                                    </div>
+
+                                    <!-- automovel cargas perigosas -->
+                                    <div id="sub-automovel-block" class="conditional-block dashed-border-top">
+                                        <div class="question-group-sub">
+                                            <h5 class="sub-question-title">O automóvel carrega cargas perigosas? </h5>
+                                            <div class="radio-options-sub">
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3ba_automovel_cargas_perigosas"
+                                                        value="true" class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                    <span class="option-text">Sim</span>
+                                                </label>
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3ba_automovel_cargas_perigosas"
+                                                        value="false" class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                    <span class="option-text">Não</span>
+                                                </label>
+                                            </div>
+
+                                            <!-- qtd cargas perig -->
+                                            <div class="input-field conditional-sub-input"
+                                                data-input-for="q3ba_automovel_cargas_perigosas">
+                                                <label for="qtd_automovel_cargas_perigosas">Automóvel Cargas Perigosas
+                                                    <span class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                                <input type="number" id="qtd_automovel_cargas_perigosas"
+                                                    name="qtd_automovel_cargas_perigosas" placeholder="0" min="0">
+                                            </div>
+                                        </div>
+
+                                        <!-- automovel cargas nao perig -->
+                                        <div class="question-group-sub">
+                                            <h5 class="sub-question-title">O automóvel carrega cargas não perigosas?
+                                            </h5>
+                                            <div class="radio-options-sub">
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3bb_automovel_cargas_nao_perigosas"
+                                                        value="true" class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                    <span class="option-text">Sim</span>
+                                                </label>
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3bb_automovel_cargas_nao_perigosas"
+                                                        value="false" class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                    <span class="option-text">Não</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- qtd cargas nao perig -->
+                                        <div class="input-field conditional-sub-input"
+                                            data-input-for="q3bb_automovel_cargas_nao_perigosas">
+                                            <label for="qtd_automovel_cargas_nao_perigosas">Automóvel Cargas Não
+                                                Perigosas
+                                                <span class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                            <input type="number" id="qtd_automovel_cargas_nao_perigosas"
+                                                name="qtd_automovel_cargas_nao_perigosas" placeholder="0" min="0">
+                                        </div>
+
+                                        <!-- automovel passageiros -->
+                                        <div class="question-group-sub">
+                                            <h5 class="sub-question-title">O automóvel carrega passageiros?</h5>
+                                            <div class="radio-options-sub">
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3bc_automovel_passageiros" value="true"
+                                                        class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                    <span class="option-text">Sim</span>
+                                                </label>
+                                                <label class="custom-option-label-sub">
+                                                    <input type="radio" name="q3bc_automovel_passageiros" value="false"
+                                                        class="sr-only">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                    <span class="option-text">Não</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- qtd passag -->
+                                        <div class="input-field conditional-sub-input"
+                                            data-input-for="q3bc_automovel_passageiros">
+                                            <label for="qtd_automovel_passageiros">Automóvel Passageiros
+                                                <span class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                            <input type="number" id="qtd_automovel_passageiros"
+                                                name="qtd_automovel_passageiros" placeholder="0" min="0">
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TERCEIRIZADO -->
+                    <div class="question-block">
+                        <h2 class="block-title">Terceirização de Transporte</h2>
+
+                        <div class="question-group">
+                            <h4 class="question-title">A empresa utiliza veículo de terceiros/contratados?</h4>
+                            <div class="radio-options">
+                                <label class="custom-option-label">
+                                    <input type="radio" name="q4_veiculo_terceiros" value="true" class="sr-only">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span class="option-text">Sim</span>
+                                </label>
+                                <label class="custom-option-label">
+                                    <input type="radio" name="q4_veiculo_terceiros" value="false" class="sr-only">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    <span class="option-text">Não</span>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div id="conditional-block-3" class="conditional-block dashed-border-top">
+
+                            <h4 class="question-title">Quais tipos de veículo de terceiros são utilizados?</h4>
+                            <p class="description-text">Responda Sim/Não para cada tipo de veículo listado abaixo:</p>
+
+                            <!-- caminhao ter -->
+                            <div class="question-group-sub">
+                                <h5 class="sub-question-title">Há uso de Caminhão de Terceiros? </h5>
+                                <div class="radio-options-sub">
+                                    <label class="custom-option-label-sub">
+                                        <input type="radio" name="q4a_caminhao_terceiros" value="true" class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="option-text">Sim</span>
+                                    </label>
+                                    <label class="custom-option-label-sub">
+                                        <input type="radio" name="q4a_caminhao_terceiros" value="false" class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <span class="option-text">Não</span>
+                                    </label>
+                                </div>
+
+                                <div id="sub-caminhao-block-terc" class="conditional-block dashed-border-top">
+
+                                    <div class="question-group-sub">
+                                        <!-- camin terc cargas perig -->
+                                        <h5 class="sub-question-title">O caminhão carrega Cargas Perigosas?</h5>
+                                        <div class="radio-options-sub">
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4aa_caminhao_terc_cargas_perigosas"
+                                                    value="true" class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span class="option-text">Sim</span>
+                                            </label>
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4aa_caminhao_terc_cargas_perigosas"
+                                                    value="false" class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                                <span class="option-text">Não</span>
+                                            </label>
+                                        </div>
+                                        <!-- qtd carga perig -->
+                                        <div class="input-field conditional-sub-input"
+                                            data-input-for="q4aa_caminhao_terc_cargas_perigosas">
+                                            <label for="qtd_caminhao_terc_perigosa">Caminhões Carga Perigosa <span
+                                                    class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                            <input type="number" id="qtd_caminhao_terc_perigosa"
+                                                name="qtd_caminhao_terc_perigosa" placeholder="0" min="0">
+                                        </div>
+                                    </div>
+
+                                    <!-- caminhao terc cargas nao perig -->
+                                    <div class="question-group-sub">
+                                        <h5 class="sub-question-title">O caminhão carrega Cargas Não Perigosas?
+                                        </h5>
+                                        <div class="radio-options-sub">
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4ab_caminhao_terc_cargas_nao_perigosas"
+                                                    value="true" class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span class="option-text">Sim</span>
+                                            </label>
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4ab_caminhao_terc_cargas_nao_perigosas"
+                                                    value="false" class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                                <span class="option-text">Não</span>
+                                            </label>
+                                        </div>
+                                        <!-- qtd cargas nao perig -->
+                                        <div class="input-field conditional-sub-input"
+                                            data-input-for="q4ab_caminhao_terc_cargas_nao_perigosas">
+                                            <label for="qtd_caminhao_terc_nao_perigosa">Caminhões Carga Não Perigosa
+                                                <span class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                            <input type="number" id="qtd_caminhao_terc_nao_perigosa"
+                                                name="qtd_caminhao_terc_nao_perigosa" placeholder="0" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- automovel terc -->
+                            <div class="question-group-sub">
+                                <h5 class="sub-question-title">Há uso de Automóvel de Terceiros? </h5>
+                                <div class="radio-options-sub">
+                                    <label class="custom-option-label-sub">
+                                        <input type="radio" name="q4b_automovel_terceiros" value="true" class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="option-text">Sim</span>
+                                    </label>
+                                    <label class="custom-option-label-sub">
+                                        <input type="radio" name="q4b_automovel_terceiros" value="false"
+                                            class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <span class="option-text">Não</span>
+                                    </label>
+                                </div>
+
+                                <!-- automovel terc cargas perig -->
+                                <div id="sub-automovel-block-terc" class="conditional-block dashed-border-top">
+                                    <div class="question-group-sub">
+                                        <h5 class="sub-question-title">O automóvel carrega cargas perigosas? </h5>
+                                        <div class="radio-options-sub">
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4ba_automovel_terc_cargas_perigosas"
+                                                    value="true" class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span class="option-text">Sim</span>
+                                            </label>
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4ba_automovel_terc_cargas_perigosas"
+                                                    value="false" class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                                <span class="option-text">Não</span>
+                                            </label>
+                                        </div>
+                                        <!-- qtd cargas perig  -->
+                                        <div class="input-field conditional-sub-input"
+                                            data-input-for="q4ba_automovel_terc_cargas_perigosas">
+                                            <label for="qtd_automovel_terc_cargas_perigosas">Automóvel Cargas Perigosas
+                                                <span class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                            <input type="number" id="qtd_automovel_terc_cargas_perigosas"
+                                                name="qtd_automovel_terc_cargas_perigosas" placeholder="0" min="0">
+                                        </div>
+                                    </div>
+
+                                    <!-- aut terc cargas nao perig -->
+                                    <div class="question-group-sub">
+                                        <h5 class="sub-question-title">O automóvel carrega cargas não perigosas?
+                                        </h5>
+                                        <div class="radio-options-sub">
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4bb_automovel_terc_cargas_nao_perigosas"
+                                                    value="true" class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span class="option-text">Sim</span>
+                                            </label>
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4bb_automovel_terc_cargas_nao_perigosas"
+                                                    value="false" class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                                <span class="option-text">Não</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- qtd cargas nao perig -->
+                                    <div class="input-field conditional-sub-input"
+                                        data-input-for="q4bb_automovel_terc_cargas_nao_perigosas">
+                                        <label for="qtd_automovel_terc_cargas_nao_perigosas">Automóvel Cargas Não
+                                            Perigosas
+                                            <span class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                        <input type="number" id="qtd_automovel_terc_cargas_nao_perigosas"
+                                            name="qtd_automovel_terc_cargas_nao_perigosas" placeholder="0" min="0">
+                                    </div>
+
+                                    <!-- aut terc passageiros  -->
+                                    <div class="question-group-sub">
+                                        <h5 class="sub-question-title">O automóvel carrega passageiros?</h5>
+                                        <div class="radio-options-sub">
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4bc_automovel_terc_passageiros" value="true"
+                                                    class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span class="option-text">Sim</span>
+                                            </label>
+                                            <label class="custom-option-label-sub">
+                                                <input type="radio" name="q4bc_automovel_terc_passageiros" value="false"
+                                                    class="sr-only">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                                <span class="option-text">Não</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- qtd passageiro -->
+                                    <div class="input-field conditional-sub-input"
+                                        data-input-for="q4bc_automovel_terc_passageiros">
+                                        <label for="qtd_automovel_terc_passageiros">Automóvel Passageiros
+                                            <span class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                        <input type="number" id="qtd_automovel_terc_passageiros"
+                                            name="qtd_automovel_terc_passageiros" placeholder="0" min="0">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submit-area">
+                    <button id="submit-btn" type="submit" class="submit-button">
+                        Gerar Plano de Ação
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <style>
+        /* CSS para ocultar o campo por padrão e mostrá-lo quando 'visible' */
+        .conditional-sub-input {
+            display: none;
+            margin-top: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #ccc;
+        }
+
+        .conditional-sub-input.visible {
+            display: block;
+        }
+
+        /* O estilo original de conditional-block já deve estar no seu style.css, mas garanto que 'visible' funciona */
+        .conditional-block:not(.visible) {
+            display: none;
+        }
+    </style>
+
+    <script>
+        /**
+         * FUNÇÃO: Oculta e reseta o valor e a obrigatoriedade de um campo de quantidade
+         */
+        function hideAndResetQuantityInput(radioName) {
+            const inputContainer = document.querySelector(`[data-input-for="${radioName}"]`);
+            if (inputContainer) {
+                inputContainer.classList.remove('visible');
+                const inputField = inputContainer.querySelector('input');
+                // Remove a obrigatoriedade
+                inputField.removeAttribute('required');
+                // Reseta o valor (opcional, mas recomendado)
+                inputField.value = 0;
+            }
+        }
+
+        // =================================================================================================================================
+        // LÓGICAS PARA VEÍCULO CORPORATIVO
+        // =================================================================================================================================
+
+        /**
+         * FUNÇÃO: Lógica para exibir/ocultar campos de quantidade de caminhão (Corporativo)
+         */
+        function handleCaminhaoQuantityFields() {
+            // Lógica Cargas Perigosas
+            const q3aaIsYes = document.querySelector('input[name="q3aa_caminhao_cargas_perigosas"]:checked')?.value === 'true';
+            const q3aaInput = document.querySelector('[data-input-for="q3aa_caminhao_cargas_perigosas"]');
+
+            if (q3aaInput) {
+                if (q3aaIsYes) {
+                    q3aaInput.classList.add('visible');
+                    q3aaInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q3aa_caminhao_cargas_perigosas');
+                }
+            }
+
+            // Lógica Cargas Não Perigosas
+            const q3abIsYes = document.querySelector('input[name="q3ab_caminhao_cargas_nao_perigosas"]:checked')?.value === 'true';
+            const q3abInput = document.querySelector('[data-input-for="q3ab_caminhao_cargas_nao_perigosas"]');
+
+            if (q3abInput) {
+                if (q3abIsYes) {
+                    q3abInput.classList.add('visible');
+                    q3abInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q3ab_caminhao_cargas_nao_perigosas');
+                }
+            }
+        }
+
+        /**
+         * FUNÇÃO: Lógica para exibir/ocultar campos de quantidade de automovel (Corporativo)
+         */
+        function handleAutomovelQuantityFields() {
+            // Lógica Cargas Perigosas
+            const q3baIsYes = document.querySelector('input[name="q3ba_automovel_cargas_perigosas"]:checked')?.value === 'true';
+            const q3baInput = document.querySelector('[data-input-for="q3ba_automovel_cargas_perigosas"]');
+
+            if (q3baInput) {
+                if (q3baIsYes) {
+                    q3baInput.classList.add('visible');
+                    q3baInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q3ba_automovel_cargas_perigosas');
+                }
+            }
+
+            // Lógica Cargas Não Perigosas
+            const q3bbIsYes = document.querySelector('input[name="q3bb_automovel_cargas_nao_perigosas"]:checked')?.value === 'true';
+            const q3bbInput = document.querySelector('[data-input-for="q3bb_automovel_cargas_nao_perigosas"]');
+
+            if (q3bbInput) {
+                if (q3bbIsYes) {
+                    q3bbInput.classList.add('visible');
+                    q3bbInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q3bb_automovel_cargas_nao_perigosas');
+                }
+            }
+
+            // Lógica Passageiros
+            const q3bcIsYes = document.querySelector('input[name="q3bc_automovel_passageiros"]:checked')?.value === 'true';
+            const q3bcInput = document.querySelector('[data-input-for="q3bc_automovel_passageiros"]');
+
+            if (q3bcInput) {
+                if (q3bcIsYes) {
+                    q3bcInput.classList.add('visible');
+                    q3bcInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q3bc_automovel_passageiros');
+                }
+            }
+        }
+
+        // =================================================================================================================================
+        // LÓGICAS PARA VEÍCULO TERCEIRIZADO (NOVAS FUNÇÕES)
+        // =================================================================================================================================
+
+        /**
+         * FUNÇÃO: Lógica para exibir/ocultar campos de quantidade de caminhão (Terceirizado)
+         */
+        function handleCaminhaoTercQuantityFields() {
+            // Lógica Cargas Perigosas
+            const q4aaIsYes = document.querySelector('input[name="q4aa_caminhao_terc_cargas_perigosas"]:checked')?.value === 'true';
+            const q4aaInput = document.querySelector('[data-input-for="q4aa_caminhao_terc_cargas_perigosas"]');
+
+            if (q4aaInput) {
+                if (q4aaIsYes) {
+                    q4aaInput.classList.add('visible');
+                    q4aaInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q4aa_caminhao_terc_cargas_perigosas');
+                }
+            }
+
+            // Lógica Cargas Não Perigosas
+            const q4abIsYes = document.querySelector('input[name="q4ab_caminhao_terc_cargas_nao_perigosas"]:checked')?.value === 'true';
+            const q4abInput = document.querySelector('[data-input-for="q4ab_caminhao_terc_cargas_nao_perigosas"]');
+
+            if (q4abInput) {
+                if (q4abIsYes) {
+                    q4abInput.classList.add('visible');
+                    q4abInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q4ab_caminhao_terc_cargas_nao_perigosas');
+                }
+            }
+        }
+
+        /**
+         * FUNÇÃO: Lógica para exibir/ocultar campos de quantidade de automóvel (Terceirizado)
+         */
+        function handleAutomovelTercQuantityFields() {
+            // Lógica Cargas Perigosas
+            const q4baIsYes = document.querySelector('input[name="q4ba_automovel_terc_cargas_perigosas"]:checked')?.value === 'true';
+            const q4baInput = document.querySelector('[data-input-for="q4ba_automovel_terc_cargas_perigosas"]');
+
+            if (q4baInput) {
+                if (q4baIsYes) {
+                    q4baInput.classList.add('visible');
+                    q4baInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q4ba_automovel_terc_cargas_perigosas');
+                }
+            }
+
+            // Lógica Cargas Não Perigosas
+            const q4bbIsYes = document.querySelector('input[name="q4bb_automovel_terc_cargas_nao_perigosas"]:checked')?.value === 'true';
+            const q4bbInput = document.querySelector('[data-input-for="q4bb_automovel_terc_cargas_nao_perigosas"]');
+
+            if (q4bbInput) {
+                if (q4bbIsYes) {
+                    q4bbInput.classList.add('visible');
+                    q4bbInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q4bb_automovel_terc_cargas_nao_perigosas');
+                }
+            }
+
+            // Lógica Passageiros
+            const q4bcIsYes = document.querySelector('input[name="q4bc_automovel_terc_passageiros"]:checked')?.value === 'true';
+            const q4bcInput = document.querySelector('[data-input-for="q4bc_automovel_terc_passageiros"]');
+
+            if (q4bcInput) {
+                if (q4bcIsYes) {
+                    q4bcInput.classList.add('visible');
+                    q4bcInput.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q4bc_automovel_terc_passageiros');
+                }
+            }
+        }
+
+
+        // =================================================================================================================================
+        // LÓGICA DE VISIBILIDADE PRINCIPAL
+        // =================================================================================================================================
+
+        /**
+         * FUNÇÃO: Lógica principal para visibilidade de blocos condicionais
+         */
+        function handleConditionalLogic() {
+            // Variáveis de controle de perguntas principais (Corporativo)
+            const q1IsYes = document.querySelector('input[name="q1_veiculo_corporativo"]:checked')?.value === 'true'; // Veículo Corporativo
+            const q2IsYes = document.querySelector('input[name="q2_motorista_profissional"]:checked')?.value === 'true'; // Motorista Profissional
+            const q3aIsYes = document.querySelector('input[name="q3a_caminhao"]:checked')?.value === 'true'; // Há uso de Caminhão? (Corp)
+            const q3bIsYes = document.querySelector('input[name="q3b_automovel"]:checked')?.value === 'true'; // Há uso de Automóvel? (Corp)
+
+            // Variáveis de controle de perguntas principais (Terceirizados)
+            const q4IsYes = document.querySelector('input[name="q4_veiculo_terceiros"]:checked')?.value === 'true'; // Veículo de Terceiros
+            const q4aIsYes = document.querySelector('input[name="q4a_caminhao_terceiros"]:checked')?.value === 'true'; // Há uso de Caminhão? (Terc)
+            const q4bIsYes = document.querySelector('input[name="q4b_automovel_terceiros"]:checked')?.value === 'true'; // Há uso de Automóvel? (Terc)
+
+
+            // Blocos condicionais principais
+            const conditionalBlock1 = document.getElementById('conditional-block-1'); // Bloco Q2/Q3 (Corp)
+            const conditionalBlock2 = document.getElementById('conditional-block-2'); // Bloco Q3a/Q3b (Corp)
+            const conditionalBlock3 = document.getElementById('conditional-block-3'); // Bloco Q4a/Q4b (Terceiros)
+
+            // Blocos condicionais aninhados (sub-perguntas Corporativo)
+            const subCaminhaoBlock = document.getElementById('sub-caminhao-block');
+            const subAutomovelBlock = document.getElementById('sub-automovel-block');
+
+            // Blocos condicionais aninhados (sub-perguntas Terceirizados - NOVOS IDS)
+            const subCaminhaoTercBlock = document.getElementById('sub-caminhao-block-terc');
+            const subAutomovelTercBlock = document.getElementById('sub-automovel-block-terc');
+
+
+            /* --- LÓGICA PRINCIPAL (Q1, Q2, Q3 - Corporativo) --- */
+
+            // Lógica para Bloco 1 (Q2 depende de Q1="Sim")
+            if (conditionalBlock1) {
+                if (q1IsYes) {
+                    conditionalBlock1.classList.add('visible');
+                } else {
+                    conditionalBlock1.classList.remove('visible');
+                    // Reset Q2 e todos os blocos e perguntas aninhadas
+                    document.querySelectorAll('input[name="q2_motorista_profissional"]').forEach(radio => radio.checked = false);
+
+                    if (conditionalBlock2) {
+                        conditionalBlock2.classList.remove('visible');
+                        document.querySelectorAll('input[name="q3a_caminhao"]').forEach(radio => radio.checked = false);
+                        document.querySelectorAll('input[name="q3b_automovel"]').forEach(radio => radio.checked = false);
+                    }
+                    // Reset sub-blocos também, caso Q1 feche tudo
+                    if (subCaminhaoBlock) subCaminhaoBlock.classList.remove('visible');
+                    if (subAutomovelBlock) subAutomovelBlock.classList.remove('visible');
+                }
+            }
+
+            // Lógica para Bloco 2 (Q3a e Q3b dependem de Q2="Sim" E Q1="Sim")
+            if (conditionalBlock2) {
+                if (q1IsYes && q2IsYes) {
+                    conditionalBlock2.classList.add('visible');
+                } else {
+                    conditionalBlock2.classList.remove('visible');
+                    // Reset Q3a e Q3b
+                    document.querySelectorAll('input[name="q3a_caminhao"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q3b_automovel"]').forEach(radio => radio.checked = false);
+
+                    // Garante que os sub-blocos fechem e resetem quando o Bloco 2 fecha
+                    if (subCaminhaoBlock) {
+                        subCaminhaoBlock.classList.remove('visible');
+                        document.querySelectorAll('input[name="q3aa_caminhao_cargas_perigosas"]').forEach(radio => radio.checked = false);
+                        document.querySelectorAll('input[name="q3ab_caminhao_cargas_nao_perigosas"]').forEach(radio => radio.checked = false);
+                        hideAndResetQuantityInput('q3aa_caminhao_cargas_perigosas');
+                        hideAndResetQuantityInput('q3ab_caminhao_cargas_nao_perigosas');
+                    }
+                    if (subAutomovelBlock) {
+                        subAutomovelBlock.classList.remove('visible');
+                        document.querySelectorAll('input[name="q3ba_automovel_cargas_perigosas"]').forEach(radio => radio.checked = false);
+                        document.querySelectorAll('input[name="q3bb_automovel_cargas_nao_perigosas"]').forEach(radio => radio.checked = false);
+                        document.querySelectorAll('input[name="q3bc_automovel_passageiros"]').forEach(radio => radio.checked = false);
+                        hideAndResetQuantityInput('q3ba_automovel_cargas_perigosas');
+                        hideAndResetQuantityInput('q3bb_automovel_cargas_nao_perigosas');
+                        hideAndResetQuantityInput('q3bc_automovel_passageiros');
+                    }
+                }
+            }
+
+            // Lógica para Sub-bloco Caminhão (Cargas - Corporativo) - Depende de Q3a="Sim"
+            if (subCaminhaoBlock) {
+                // Aparece se: Q1=Sim AND Q2=Sim AND Q3a=Sim
+                if (q1IsYes && q2IsYes && q3aIsYes) {
+                    subCaminhaoBlock.classList.add('visible');
+                    handleCaminhaoQuantityFields();
+                } else {
+                    subCaminhaoBlock.classList.remove('visible');
+                    document.querySelectorAll('input[name="q3aa_caminhao_cargas_perigosas"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q3ab_caminhao_cargas_nao_perigosas"]').forEach(radio => radio.checked = false);
+                    hideAndResetQuantityInput('q3aa_caminhao_cargas_perigosas');
+                    hideAndResetQuantityInput('q3ab_caminhao_cargas_nao_perigosas');
+                }
+            }
+
+            // Lógica para Sub-bloco Automóvel (Detalhes - Corporativo) - Depende de Q3b="Sim"
+            if (subAutomovelBlock) {
+                // Aparece se: Q1=Sim AND Q2=Sim AND Q3b=Sim
+                if (q1IsYes && q2IsYes && q3bIsYes) {
+                    subAutomovelBlock.classList.add('visible');
+                    handleAutomovelQuantityFields();
+                } else {
+                    subAutomovelBlock.classList.remove('visible');
+                    document.querySelectorAll('input[name="q3ba_automovel_cargas_perigosas"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q3bb_automovel_cargas_nao_perigosas"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q3bc_automovel_passageiros"]').forEach(radio => radio.checked = false);
+                    hideAndResetQuantityInput('q3ba_automovel_cargas_perigosas');
+                    hideAndResetQuantityInput('q3bb_automovel_cargas_nao_perigosas');
+                    hideAndResetQuantityInput('q3bc_automovel_passageiros');
+                }
+            }
+
+            /* --- LÓGICA PARA TERCEIROS (Q4, Q4a, Q4b) --- */
+
+            // Lógica para Bloco 3 (Q4a e Q4b dependem de Q4="Sim")
+            if (conditionalBlock3) {
+                if (q4IsYes) {
+                    conditionalBlock3.classList.add('visible');
+                    // Aqui não há uma chamada de função de quantidade, pois Q4a e Q4b não são inputs de quantidade.
+                } else {
+                    conditionalBlock3.classList.remove('visible');
+                    // Se Q4 for "Não", reseta Q4a, Q4b e os sub-blocos aninhados
+                    document.querySelectorAll('input[name="q4a_caminhao_terceiros"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q4b_automovel_terceiros"]').forEach(radio => radio.checked = false);
+
+                    if (subCaminhaoTercBlock) subCaminhaoTercBlock.classList.remove('visible');
+                    if (subAutomovelTercBlock) subAutomovelTercBlock.classList.remove('visible');
+                }
+            }
+
+            // Lógica para Sub-bloco Caminhão (Cargas - Terceirizado) - Depende de Q4a="Sim" E Q4="Sim"
+            if (subCaminhaoTercBlock) {
+                // Aparece se: Q4=Sim AND Q4a=Sim
+                if (q4IsYes && q4aIsYes) {
+                    subCaminhaoTercBlock.classList.add('visible');
+                    handleCaminhaoTercQuantityFields(); // Gerencia as quantidades
+                } else {
+                    subCaminhaoTercBlock.classList.remove('visible');
+                    // Reseta os inputs das cargas do caminhão terceirizado
+                    document.querySelectorAll('input[name="q4aa_caminhao_terc_cargas_perigosas"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q4ab_caminhao_terc_cargas_nao_perigosas"]').forEach(radio => radio.checked = false);
+                    // Garante que os campos de quantidade fiquem invisíveis e resetados quando o bloco fecha
+                    hideAndResetQuantityInput('q4aa_caminhao_terc_cargas_perigosas');
+                    hideAndResetQuantityInput('q4ab_caminhao_terc_cargas_nao_perigosas');
+                }
+            }
+
+            // Lógica para Sub-bloco Automóvel (Detalhes - Terceirizado) - Depende de Q4b="Sim" E Q4="Sim"
+            if (subAutomovelTercBlock) {
+                // Aparece se: Q4=Sim AND Q4b=Sim
+                if (q4IsYes && q4bIsYes) {
+                    subAutomovelTercBlock.classList.add('visible');
+                    handleAutomovelTercQuantityFields(); // Gerencia as quantidades
+                } else {
+                    subAutomovelTercBlock.classList.remove('visible');
+                    // Reseta os inputs do automóvel terceirizado
+                    document.querySelectorAll('input[name="q4ba_automovel_terc_cargas_perigosas"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q4bb_automovel_terc_cargas_nao_perigosas"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q4bc_automovel_terc_passageiros"]').forEach(radio => radio.checked = false);
+                    // Garante que os campos de quantidade fiquem invisíveis e resetados quando o bloco fecha
+                    hideAndResetQuantityInput('q4ba_automovel_terc_cargas_perigosas');
+                    hideAndResetQuantityInput('q4bb_automovel_terc_cargas_nao_perigosas');
+                    hideAndResetQuantityInput('q4bc_automovel_terc_passageiros');
+                }
+            }
+
+            // Chamadas de gerenciamento de quantidade para garantir que atualizem se a pergunta principal estiver visível
+            if (subCaminhaoBlock && subCaminhaoBlock.classList.contains('visible')) handleCaminhaoQuantityFields();
+            if (subAutomovelBlock && subAutomovelBlock.classList.contains('visible')) handleAutomovelQuantityFields();
+            if (subCaminhaoTercBlock && subCaminhaoTercBlock.classList.contains('visible')) handleCaminhaoTercQuantityFields();
+            if (subAutomovelTercBlock && subAutomovelTercBlock.classList.contains('visible')) handleAutomovelTercQuantityFields();
+        }
+
+        // Adiciona um único listener no formulário e chama a lógica em qualquer mudança
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('pnatrans-form');
+
+            form.addEventListener('change', (event) => {
+                if (event.target.type === 'radio') {
+                    // Executa a lógica principal e a lógica dos campos de quantidade
+                    handleConditionalLogic();
+                }
+            });
+
+            // Garante que a lógica inicial rode ao carregar a página
+            handleConditionalLogic();
+        });
+
+    </script>
+
+
+</body>
+
+</html>

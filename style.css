@@ -28,7 +28,7 @@ main {
 }
 @media (min-width: 768px) {
     main {
-        padding: 30px; /* md:p-8 (2rem) */
+        padding: 0px; /* md:p-8 (2rem) */
     }
 }
 
@@ -396,3 +396,378 @@ footer {
 .btn-continuar:hover {
     background-color: #e0a800; /* Amarelo mais escuro ao passar o mouse */
 }
+
+/*xxx*/
+
+/* Paleta de Cores */
+:root {
+    --color-bg-light: #f4f4f5; /* zinc-100 */
+    --color-text-dark: #1f2937; /* gray-900 */
+    --color-text-normal: #4b5563; /* gray-600 */
+    --color-text-light: #6b7280; /* gray-500 */
+    --color-amber-dark: #d97706; /* amber-600 */
+    --color-amber-medium: #f59e0b; /* amber-500 */
+    --color-amber-light: #fcd34d; /* amber-400 */
+    --color-border-light: #e5e7eb; /* gray-200 */
+    --color-white: #ffffff;
+    --color-black: #000000;
+}
+
+
+/* ---------------------------------------------------- */
+/* ESTRUTURA E LAYOUT GERAL */
+/* ---------------------------------------------------- */
+
+.container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 16px; /* 1rem */
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding: 24px; /* 1.5rem */
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 50px; /* 2.5rem */
+    }
+}
+
+.main-content {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px; /* 2rem */
+}
+
+/* ---------------------------------------------------- */
+/* HEADER E CARD DE INFORMAÇÃO */
+/* ---------------------------------------------------- */
+
+.header {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--color-amber-light);
+    padding: 24px; /* 1.5rem */
+    border-radius: 12px; /* 0.75rem */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    margin-bottom: 32px; /* 2rem */
+}
+
+.header h1 {
+    font-size: 30px; /* 1.875rem */
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 0;
+}
+
+.header p {
+    font-size: 16px; /* 1rem */
+    color: rgba(0, 0, 0, 0.8);
+    margin-top: 4px; /* 0.25rem */
+}
+
+@media (min-width: 768px) {
+    .header h1 {
+        font-size: 36px; /* 2.25rem */
+    }
+}
+
+.intro-card {
+    background-color: var(--color-white);
+    padding: 24px; /* 1.5rem */
+    border-radius: 8px; /* 0.5rem */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--color-border-light);
+}
+
+.intro-card h2 {
+    font-size: 24px; /* 1.5rem */
+    font-weight: 700;
+    text-align: center;
+    color: #374151;
+    margin-top: 0;
+    margin-bottom: 8px; /* 0.5rem */
+}
+
+.intro-card p {
+    text-align: center;
+    color: var(--color-text-light);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* ---------------------------------------------------- */
+/* BLOCO DE PERGUNTAS */
+/* ---------------------------------------------------- */
+
+.questionnaire-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px; /* 2rem */
+}
+
+.question-block {
+    background-color: var(--color-white);
+    padding: 24px; /* 1.5rem */
+    border-radius: 12px; /* 0.75rem */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border-top: 4px solid var(--color-amber-light);
+}
+
+@media (min-width: 640px) {
+    .question-block {
+        padding: 32px; /* 2rem */
+    }
+}
+
+.block-title {
+    font-size: 24px; /* 1.5rem */
+    font-weight: 700;
+    color: #374151;
+    padding-bottom: 12px; /* 0.75rem */
+    margin-bottom: 16px; /* 1rem */
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+/* ---------------------------------------------------- */
+/* GRUPO DE PERGUNTAS INDIVIDUAL */
+/* ---------------------------------------------------- */
+
+.question-group {
+    padding-top: 16px; /* 1rem */
+    padding-bottom: 16px; /* 1rem */
+}
+
+.question-group:not(:last-child) {
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.question-title {
+    font-size: 18px; /* 1.125rem */
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 12px; /* 0.75rem */
+    margin-top: 0;
+}
+
+.description-text {
+    font-size: 14px; /* 0.875rem */
+    color: var(--color-text-light);
+    margin-bottom: 16px; /* 1rem */
+    margin-top: 0;
+}
+
+/* Perguntas aninhadas (sub-perguntas Q3 e Q4) */
+.question-group-sub {
+    padding-top: 16px; /* 1rem */
+    padding-bottom: 16px; /* 1rem */
+}
+
+.question-group-sub:not(:last-child) {
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.sub-question-title {
+    font-size: 18px; /* 1rem */
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 12px; /* 0.75rem */
+    margin-left: 0; /* 1rem */
+    margin-top: 0;
+    text-align: center;
+}
+
+/* ---------------------------------------------------- */
+/* OPÇÕES DE RÁDIO */
+/* ---------------------------------------------------- */
+
+.radio-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* 0.5rem */
+}
+
+@media (min-width: 640px) {
+    .radio-options {
+        flex-direction: row;
+        gap: 16px; /* 1rem */
+    }
+}
+
+.radio-options-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* 0.5rem */
+    margin-left: 0;
+}
+
+@media (min-width: 640px) {
+    .radio-options-sub {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 16px; /* 1rem */
+    }
+}
+
+/* ---------------------------------------------------- */
+/* ESTILOS DOS BOTÕES DE RÁDIO CUSTOMIZADOS */
+/* ---------------------------------------------------- */
+
+.custom-option-label,
+.custom-option-label-sub {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 12px; /* 0.75rem */
+    border: 2px solid #d1d5db;
+    border-radius: 8px; /* 0.5rem */
+    transition: all 0.2s ease-in-out;
+    color: var(--color-text-normal);
+}
+
+.custom-option-label-sub {
+    width: auto;
+    /* MODIFICADO: Aumenta o tamanho do retângulo do sub-item */
+    padding: 8px 45px; /* 0.75rem 1.5rem (Aumentado de 8px 16px) */
+    /* MODIFICADO: Garante que o texto do sub-item seja maior */
+    font-size: 16px;
+}
+
+.custom-option-label:hover,
+.custom-option-label-sub:hover {
+    border-color: var(--color-amber-medium);
+}
+
+/* O input real é escondido (sr-only no Tailwind) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Estado selecionado */
+.custom-option-label:has(input:checked),
+.custom-option-label-sub:has(input:checked) {
+    background-color: var(--color-amber-medium);
+    border-color: var(--color-amber-dark);
+}
+
+/* Texto e Ícone no estado selecionado */
+.custom-option-label:has(input:checked) .option-text,
+.custom-option-label-sub:has(input:checked) .option-text {
+    color: var(--color-black) !important;
+    font-weight: 700;
+}
+
+.option-icon {
+    /* MODIFICADO: Aumenta o tamanho do ícone */
+    height: 24px; /* 1.5rem (Aumentado de 20px) */
+    width: 24px; /* 1.5rem (Aumentado de 20px) */
+    margin-right: 8px; /* 0.5rem */
+    color: #9ca3af;
+}
+
+/* Garante que o ícone também fique escuro quando selecionado */
+.custom-option-label:has(input:checked) .option-icon,
+.custom-option-label-sub:has(input:checked) .option-icon {
+    stroke: var(--color-black);
+    color: var(--color-black);
+}
+
+.option-text {
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------- */
+/* BLOCOS CONDICIONAIS (TRANSITION - Essencial) */
+/* ---------------------------------------------------- */
+
+.conditional-block {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.conditional-block.visible {
+    max-height: 1500px;
+    opacity: 1;
+    transform: translateY(0);
+    padding-top: 24px; /* 1.5rem */
+    margin-top: 24px; /* 1.5rem */
+}
+
+.dashed-border-top {
+    border-top: 2px dashed var(--color-border-light);
+}
+
+/* ---------------------------------------------------- */
+/* BOTÃO DE SUBMISSÃO */
+/* ---------------------------------------------------- */
+
+.submit-area {
+    padding: 16px 0; /* 1rem */
+    text-align: center;
+}
+
+.submit-button {
+    background-color: var(--color-amber-medium);
+    color: var(--color-black);
+    font-weight: 700;
+    padding: 12px 24px; /* 0.75rem 1.5rem */
+    border-radius: 8px; /* 0.5rem */
+    border: 2px solid var(--color-amber-dark);
+    cursor: pointer;
+    font-size: 18px; /* 1.125rem */
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+}
+
+.submit-button:hover {
+    background-color: var(--color-amber-dark);
+    border-color: var(--color-amber-dark);
+    color: var(--color-white);
+}
+
+.ml-2 {
+    margin-left: 8px; /* 0.5rem */
+    color: var(--color-black);
+    transition: color 0.2s;
+}
+
+.submit-button:hover .ml-2 {
+    color: var(--color-white);
+}
+
+
+
+
+
+
