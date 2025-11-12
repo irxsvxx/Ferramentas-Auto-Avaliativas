@@ -14,7 +14,7 @@ body {
 
 main {
     width: 100%;
-    max-width: 768px; 
+    max-width: 800px; 
     margin-left: auto; 
     margin-right: auto; 
     padding: 16px; 
@@ -43,7 +43,7 @@ header {
 
 .icon-circle {
     display: inline-block;
-    background-color: #fcd34d; 
+    background-color: #ffc807; 
     padding: 16px; /* p-4 (1rem) */
     border-radius: 9999px; /* rounded-full */
     margin-bottom: 8px; /* mb-4 (0.5rem) */
@@ -91,7 +91,7 @@ h1 {
 .alerta-iniciais {
     margin-bottom: 24px; 
     background-color: #fffbeb;
-    border-left: 4px solid #fbbf24; 
+    border-left: 4px solid #ffc807; 
     padding: 16px; 
     border-top-right-radius: 8px; 
     border-bottom-right-radius: 8px; 
@@ -106,7 +106,6 @@ h1 {
 .alerta-iniciais p {
     font-size: 14px;
     color: #4b5563; 
-    margin-top: -10px;
 }
 
 /* ================================================= */
@@ -254,23 +253,9 @@ footer {
     margin-top: 4px; /* 0.25rem */
 }
 
-
-
-
-
 /* ---------------------------------- */
 /* ESTILIZAÇÃO GERAL DO CARTÃO/FORMULÁRIO */
 /* ---------------------------------- */
-
-/* Assumindo que você tem um container principal envolvendo tudo */
-.card-form {
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    max-width: 900px; /* Largura aproximada do formulário na imagem */
-    margin: 20px auto;
-}
 
 /* Título e Subtítulo */
 .card-form h2 { /* Informações do Município */
@@ -394,7 +379,7 @@ footer {
 }
 
 .btn-continuar:hover {
-    background-color: #e0a800; /* Amarelo mais escuro ao passar o mouse */
+    background-color: #000000; /* Amarelo mais escuro ao passar o mouse */
 }
 
 /*xxx*/
@@ -407,7 +392,7 @@ footer {
     --color-text-light: #6b7280; /* gray-500 */
     --color-amber-dark: #d97706; /* amber-600 */
     --color-amber-medium: #f59e0b; /* amber-500 */
-    --color-amber-light: #fcd34d; /* amber-400 */
+    --color-amber-light: #ffc807; /* amber-400 */
     --color-border-light: #e5e7eb; /* gray-200 */
     --color-white: #ffffff;
     --color-black: #000000;
@@ -419,21 +404,21 @@ footer {
 /* ---------------------------------------------------- */
 
 .container {
-    max-width: 1280px;
+    max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
-    padding: 16px; /* 1rem */
+    padding: 16px; 
 }
 
 @media (min-width: 640px) {
     .container {
-        padding: 24px; /* 1.5rem */
+        padding: 0px; 
     }
 }
 
 @media (min-width: 768px) {
     .container {
-        padding: 50px; /* 2.5rem */
+        padding: 0px;
     }
 }
 
@@ -446,14 +431,14 @@ footer {
 .form-container {
     display: flex;
     flex-direction: column;
-    gap: 32px; /* 2rem */
+    gap: 32px; 
 }
 
 /* ---------------------------------------------------- */
 /* HEADER E CARD DE INFORMAÇÃO */
 /* ---------------------------------------------------- */
 
-.header {
+.header-esp {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -465,21 +450,21 @@ footer {
     margin-bottom: 32px; /* 2rem */
 }
 
-.header h1 {
+.header-esp h1 {
     font-size: 30px; /* 1.875rem */
     font-weight: 700;
     color: var(--color-black);
     margin: 0;
 }
 
-.header p {
+.header-esp p {
     font-size: 16px; /* 1rem */
     color: rgba(0, 0, 0, 0.8);
     margin-top: 4px; /* 0.25rem */
 }
 
 @media (min-width: 768px) {
-    .header h1 {
+    .header-esp h1 {
         font-size: 36px; /* 2.25rem */
     }
 }
@@ -716,7 +701,7 @@ footer {
 }
 
 .conditional-block.visible {
-    max-height: 1500px;
+    max-height: 5000px;
     opacity: 1;
     transform: translateY(0);
     padding-top: 24px; /* 1.5rem */
@@ -766,8 +751,222 @@ footer {
     color: var(--color-white);
 }
 
+/* PALETA DE CORES (Mantida do estilo amarelo) */
+:root {
+    --color-primary: #ffc807; /* Amarelo principal do cabeçalho */
+    --color-secondary: #FF8800; /* Laranja (para destaque/botões/títulos) */
+    --color-background: #F4F4F4; /* Fundo geral claro */
+    --color-card-bg: #FFFFFF; /* Fundo dos cards (branco) */
+    --color-text-dark: #333333; /* Texto principal escuro */
+    --color-text-light: #555555; /* Texto secundário */
+    --color-border: #E0E0E0; /* Borda leve dos inputs */
+    --color-success: #4CAF50; /* Cor de sucesso/check */
+}
+
+/* Base Geral */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px; 
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Header (Estética Amarela/Laranja) */
+
+.header {
+    background-color: var(--color-primary);
+    color: var(--color-text-dark);
+    padding: 30px 40px;
+    display: flex;
+    align-items: center;
+    border-bottom: 5px solid var(--color-secondary);
+}
+
+.logo-area {
+    margin-right: 20px;
+}
+
+.logo-icon {
+    color: var(--color-secondary);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
+}
+
+.header-text h1 {
+    font-weight: 700;
+    font-size: 2.2em;
+    margin-bottom: 3px;
+}
+
+.header-text p {
+    font-weight: 400;
+    font-size: 1.1em;
+    color: var(--color-text-light);
+}
 
 
 
+.main-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Largura fixa para a navegação */
+    gap: 30px;
+}
+
+.col-left {
+    /* Manter a navegação na lateral */
+    position: sticky; 
+    top: 30px; /* Para fixar a navegação enquanto rola o conteúdo */
+    align-self: flex-start;
+}
+
+.col-right {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
 
 
+/* Estilo dos Cards/Seções */
+.card {
+    background-color: var(--color-card-bg);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    /* Removido o border-left para simplificar o visual do card de conteúdo */
+}
+
+.question-section h3 {
+    font-size: 1.3em;
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--color-border);
+    display: flex;
+    align-items: center;
+}
+
+.question-section h3 i {
+    margin-right: 10px;
+    color: var(--color-secondary);
+    font-size: 1.1em;
+}
+
+/* Navegação Lateral de Passos */
+.card-nav {
+    border-left: 5px solid var(--color-primary); /* Destaque amarelo */
+}
+.card-nav h2 {
+    color: var(--color-secondary);
+    margin-bottom: 15px;
+}
+
+.step-list {
+    list-style: none;
+    padding: 0;
+}
+
+.step {
+    padding: 12px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    color: var(--color-text-light);
+    transition: background-color 0.3s;
+}
+
+.step:hover {
+    background-color: #FFFBEB; /* Amarelo muito claro no hover */
+}
+
+.step.active {
+    background-color: var(--color-primary);
+    color: var(--color-text-dark);
+    font-weight: 500;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.step-num {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: var(--color-border);
+    color: var(--color-text-dark);
+    font-weight: 700;
+    font-size: 0.85em;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.step.active .step-num {
+    background-color: var(--color-card-bg); /* Branco no passo ativo */
+    color: var(--color-secondary);
+}
+
+.step-num i.fa-check {
+    color: var(--color-success);
+}
+
+/* Botoes de Navegação (Próximo/Anterior) */
+.nav-buttons, .question-section > .btn-nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 25px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 15px;
+}
+.question-section > .btn-nav {
+    justify-content: flex-end;
+    width: 100%;
+}
+
+
+.btn-nav {
+    background-color: var(--color-secondary);
+    color: var(--color-card-bg);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-nav.prev-step-btn {
+    background-color: var(--color-text-light);
+}
+
+.btn-nav:hover {
+    background-color: #E87A00; 
+}
+.btn-nav.prev-step-btn:hover {
+    background-color: #444; 
+}
+
+.btn-nav.full-width {
+    width: 100%;
+    justify-content: center;
+    background-color: var(--color-text-light);
+}

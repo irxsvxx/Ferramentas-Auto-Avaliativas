@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questionário de Transporte Corporativo</title>
+    <title>Especificações da Empresa</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -17,13 +17,13 @@
 <body>
     <div class="container">
 
-        <header class="header">
+        <header class="header-esp">
             <h1>Pesquisa de Transporte nas Empresas</h1>
             <p>Indicadores de Segurança Viária</p>
         </header>
 
         <main class="main-content">
-            <form id="pnatrans-form" class="form-container">
+            <form id="especificacoes-form" class="form-container">
 
                 <div class="card-info intro-card">
                     <h2>Formulário de Coleta</h2>
@@ -33,7 +33,6 @@
                 <div id="questionnaire-container" class="questionnaire-container">
 
                     <div class="question-block">
-                        <!-- transporte corporativo -->
                         <h2 class="block-title">Transporte Corporativo</h2>
 
                         <div class="question-group">
@@ -58,7 +57,6 @@
                             </div>
                         </div>
 
-                        <!-- motorista profissional -->
                         <div id="conditional-block-1" class="conditional-block dashed-border-top">
 
                             <div class="question-group">
@@ -66,7 +64,7 @@
                                 </h4>
                                 <div class="radio-options">
                                     <label class="custom-option-label">
-                                        <input type="radio" name="q2_motorista_profissional" value="true"
+                                        <input type="radio" name="q2a_motorista_profissional" value="true"
                                             class="sr-only">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -75,7 +73,7 @@
                                         <span class="option-text">Sim</span>
                                     </label>
                                     <label class="custom-option-label">
-                                        <input type="radio" name="q2_motorista_profissional" value="false"
+                                        <input type="radio" name="q2a_motorista_profissional" value="false"
                                             class="sr-only">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -85,6 +83,51 @@
                                         <span class="option-text">Não</span>
                                     </label>
                                 </div>
+
+                                <div class="input-field conditional-sub-input"
+                                    data-input-for="q2a_motorista_profissional">
+                                    <label for="qtd_motorista_profissional">Quantidade de motoristas profissionais <span
+                                            class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                    <input type="number" id="qtd_motorista_profissional"
+                                        name="qtd_motorista_profissional" placeholder="0" min="0">
+                                </div>
+
+                            </div>
+
+                            <div class="question-group dashed-border-top">
+                                <h4 class="question-title">O veículo corporativo é dirigido por motorista NÃO
+                                    profissional?
+                                </h4>
+                                <div class="radio-options">
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q2b_motorista_nao_profissional" value="true"
+                                            class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="option-text">Sim</span>
+                                    </label>
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q2b_motorista_nao_profissional" value="false"
+                                            class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <span class="option-text">Não</span>
+                                    </label>
+                                </div>
+
+                                <div class="input-field conditional-sub-input"
+                                    data-input-for="q2b_motorista_nao_profissional">
+                                    <label for="qtd_motorista_nao_profissional">Quantidade de motoristas NÃO
+                                        profissionais <span class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                    <input type="number" id="qtd_motorista_nao_profissional"
+                                        name="qtd_motorista_nao_profissional" placeholder="0" min="0">
+                                </div>
+
                             </div>
 
                             <div id="conditional-block-2" class="conditional-block dashed-border-top">
@@ -94,7 +137,6 @@
                                 <p class="description-text">Responda Sim/Não para cada tipo de veículo listado abaixo:
                                 </p>
 
-                                <!-- uso de caminhão corporativo -->
                                 <div class="question-group">
                                     <h4 class="question-title">Há uso de Caminhão? </h4>
                                     <div class="radio-options">
@@ -120,7 +162,6 @@
 
                                     <div id="sub-caminhao-block" class="conditional-block dashed-border-top">
 
-                                        <!-- camin cargas perigosas  -->
                                         <div class="question-group-sub">
                                             <h5 class="sub-question-title">O caminhão carrega Cargas Perigosas?</h5>
                                             <div class="radio-options-sub">
@@ -148,7 +189,6 @@
                                                 </label>
                                             </div>
 
-                                            <!-- qtd cargas perig -->
                                             <div class="input-field conditional-sub-input"
                                                 data-input-for="q3aa_caminhao_cargas_perigosas">
                                                 <label for="qtd_caminhao_perigosa">Caminhões Carga Perigosa <span
@@ -158,7 +198,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- camin cargas nao perig  -->
                                         <div class="question-group-sub">
                                             <h5 class="sub-question-title">O caminhão carrega Cargas Não Perigosas?
                                             </h5>
@@ -187,7 +226,6 @@
                                                 </label>
                                             </div>
 
-                                            <!-- qtd cargas nao perigosas -->
                                             <div class="input-field conditional-sub-input"
                                                 data-input-for="q3ab_caminhao_cargas_nao_perigosas">
                                                 <label for="qtd_caminhao_nao_perigosa">Caminhões Carga Não Perigosa
@@ -199,7 +237,6 @@
                                     </div>
                                 </div>
 
-                                <!-- uso de automóvel -->
                                 <div class="question-group">
                                     <h4 class="question-title">Há uso de Automóvel? </h4>
                                     <div class="radio-options">
@@ -223,7 +260,6 @@
                                         </label>
                                     </div>
 
-                                    <!-- automovel cargas perigosas -->
                                     <div id="sub-automovel-block" class="conditional-block dashed-border-top">
                                         <div class="question-group-sub">
                                             <h5 class="sub-question-title">O automóvel carrega cargas perigosas? </h5>
@@ -252,7 +288,6 @@
                                                 </label>
                                             </div>
 
-                                            <!-- qtd cargas perig -->
                                             <div class="input-field conditional-sub-input"
                                                 data-input-for="q3ba_automovel_cargas_perigosas">
                                                 <label for="qtd_automovel_cargas_perigosas">Automóvel Cargas Perigosas
@@ -262,7 +297,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- automovel cargas nao perig -->
                                         <div class="question-group-sub">
                                             <h5 class="sub-question-title">O automóvel carrega cargas não perigosas?
                                             </h5>
@@ -291,7 +325,6 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <!-- qtd cargas nao perig -->
                                         <div class="input-field conditional-sub-input"
                                             data-input-for="q3bb_automovel_cargas_nao_perigosas">
                                             <label for="qtd_automovel_cargas_nao_perigosas">Automóvel Cargas Não
@@ -301,7 +334,6 @@
                                                 name="qtd_automovel_cargas_nao_perigosas" placeholder="0" min="0">
                                         </div>
 
-                                        <!-- automovel passageiros -->
                                         <div class="question-group-sub">
                                             <h5 class="sub-question-title">O automóvel carrega passageiros?</h5>
                                             <div class="radio-options-sub">
@@ -330,7 +362,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- qtd passag -->
                                         <div class="input-field conditional-sub-input"
                                             data-input-for="q3bc_automovel_passageiros">
                                             <label for="qtd_automovel_passageiros">Automóvel Passageiros
@@ -346,7 +377,6 @@
                         </div>
                     </div>
 
-                    <!-- TERCEIRIZADO -->
                     <div class="question-block">
                         <h2 class="block-title">Terceirização de Transporte</h2>
 
@@ -378,7 +408,6 @@
                             <h4 class="question-title">Quais tipos de veículo de terceiros são utilizados?</h4>
                             <p class="description-text">Responda Sim/Não para cada tipo de veículo listado abaixo:</p>
 
-                            <!-- caminhao ter -->
                             <div class="question-group-sub">
                                 <h5 class="sub-question-title">Há uso de Caminhão de Terceiros? </h5>
                                 <div class="radio-options-sub">
@@ -404,7 +433,6 @@
                                 <div id="sub-caminhao-block-terc" class="conditional-block dashed-border-top">
 
                                     <div class="question-group-sub">
-                                        <!-- camin terc cargas perig -->
                                         <h5 class="sub-question-title">O caminhão carrega Cargas Perigosas?</h5>
                                         <div class="radio-options-sub">
                                             <label class="custom-option-label-sub">
@@ -428,7 +456,6 @@
                                                 <span class="option-text">Não</span>
                                             </label>
                                         </div>
-                                        <!-- qtd carga perig -->
                                         <div class="input-field conditional-sub-input"
                                             data-input-for="q4aa_caminhao_terc_cargas_perigosas">
                                             <label for="qtd_caminhao_terc_perigosa">Caminhões Carga Perigosa <span
@@ -438,7 +465,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- caminhao terc cargas nao perig -->
                                     <div class="question-group-sub">
                                         <h5 class="sub-question-title">O caminhão carrega Cargas Não Perigosas?
                                         </h5>
@@ -464,7 +490,6 @@
                                                 <span class="option-text">Não</span>
                                             </label>
                                         </div>
-                                        <!-- qtd cargas nao perig -->
                                         <div class="input-field conditional-sub-input"
                                             data-input-for="q4ab_caminhao_terc_cargas_nao_perigosas">
                                             <label for="qtd_caminhao_terc_nao_perigosa">Caminhões Carga Não Perigosa
@@ -476,7 +501,6 @@
                                 </div>
                             </div>
 
-                            <!-- automovel terc -->
                             <div class="question-group-sub">
                                 <h5 class="sub-question-title">Há uso de Automóvel de Terceiros? </h5>
                                 <div class="radio-options-sub">
@@ -500,7 +524,6 @@
                                     </label>
                                 </div>
 
-                                <!-- automovel terc cargas perig -->
                                 <div id="sub-automovel-block-terc" class="conditional-block dashed-border-top">
                                     <div class="question-group-sub">
                                         <h5 class="sub-question-title">O automóvel carrega cargas perigosas? </h5>
@@ -526,7 +549,6 @@
                                                 <span class="option-text">Não</span>
                                             </label>
                                         </div>
-                                        <!-- qtd cargas perig  -->
                                         <div class="input-field conditional-sub-input"
                                             data-input-for="q4ba_automovel_terc_cargas_perigosas">
                                             <label for="qtd_automovel_terc_cargas_perigosas">Automóvel Cargas Perigosas
@@ -536,7 +558,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- aut terc cargas nao perig -->
                                     <div class="question-group-sub">
                                         <h5 class="sub-question-title">O automóvel carrega cargas não perigosas?
                                         </h5>
@@ -563,7 +584,6 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <!-- qtd cargas nao perig -->
                                     <div class="input-field conditional-sub-input"
                                         data-input-for="q4bb_automovel_terc_cargas_nao_perigosas">
                                         <label for="qtd_automovel_terc_cargas_nao_perigosas">Automóvel Cargas Não
@@ -573,7 +593,6 @@
                                             name="qtd_automovel_terc_cargas_nao_perigosas" placeholder="0" min="0">
                                     </div>
 
-                                    <!-- aut terc passageiros  -->
                                     <div class="question-group-sub">
                                         <h5 class="sub-question-title">O automóvel carrega passageiros?</h5>
                                         <div class="radio-options-sub">
@@ -599,7 +618,6 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <!-- qtd passageiro -->
                                     <div class="input-field conditional-sub-input"
                                         data-input-for="q4bc_automovel_terc_passageiros">
                                         <label for="qtd_automovel_terc_passageiros">Automóvel Passageiros
@@ -613,12 +631,103 @@
 
                         </div>
                     </div>
+
+                    <div class="question-block">
+                        <h2 class="block-title">Veículo de Aluguel</h2>
+
+                        <h4 class="question-title">A empresa utiliza veículo de aluguel?</h4>
+                        <div class="radio-options">
+                            <label class="custom-option-label">
+                                <input type="radio" name="q5_veiculo_aluguel" value="true" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span class="option-text">Sim</span>
+                            </label>
+                            <label class="custom-option-label">
+                                <input type="radio" name="q5_veiculo_aluguel" value="false" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span class="option-text">Não</span>
+                            </label>
+                        </div>
+                        <div class="input-field conditional-sub-input" data-input-for="q5_veiculo_aluguel">
+                            <label for="qtd_veiculo_aluguel">Quantidade de Veículos de Aluguel <span
+                                    class="obrigatorio">* OBRIGATÓRIO</span></label>
+                            <input type="number" id="qtd_veiculo_aluguel" name="qtd_veiculo_aluguel" placeholder="0"
+                                min="0">
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <h2 class="block-title">Taxi</h2>
+
+                        <h4 class="question-title">A empresa faz o uso de taxi?</h4>
+                        <div class="radio-options">
+                            <label class="custom-option-label">
+                                <input type="radio" name="q6_veiculo_taxi" value="true" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span class="option-text">Sim</span>
+                            </label>
+                            <label class="custom-option-label">
+                                <input type="radio" name="q6_veiculo_taxi" value="false" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span class="option-text">Não</span>
+                            </label>
+                        </div>
+                        <div class="input-field conditional-sub-input" data-input-for="q6_veiculo_taxi">
+                            <label for="qtd_veiculo_taxi">Quantidade de Táxis utilizados <span class="obrigatorio">*
+                                    OBRIGATÓRIO</span></label>
+                            <input type="number" id="qtd_veiculo_taxi" name="qtd_veiculo_taxi" placeholder="0" min="0">
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <h2 class="block-title">Veículo Não Motorizado</h2>
+
+                        <h4 class="question-title">A empresa faz o uso de veículo não motorizado?</h4>
+                        <div class="radio-options">
+                            <label class="custom-option-label">
+                                <input type="radio" name="q7_veiculo_nao_motorizado" value="true" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span class="option-text">Sim</span>
+                            </label>
+                            <label class="custom-option-label">
+                                <input type="radio" name="q7_veiculo_nao_motorizado" value="false" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span class="option-text">Não</span>
+                            </label>
+                        </div>
+                        <div class="input-field conditional-sub-input" data-input-for="q7_veiculo_nao_motorizado">
+                            <label for="qtd_veiculo_nao_motorizado">Quantidade de Veículos Não Motorizados <span
+                                    class="obrigatorio">* OBRIGATÓRIO</span></label>
+                            <input type="number" id="qtd_veiculo_nao_motorizado" name="qtd_veiculo_nao_motorizado"
+                                placeholder="0" min="0">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="submit-area">
-                    <button id="submit-btn" type="submit" class="submit-button">
-                        Gerar Plano de Ação
-                        <i class="fas fa-arrow-right ml-2"></i>
+                <div class="botoes-container">
+                    <button type="button" class="btn btn-voltar" onclick="window.location.href = 'index.html';">
+                        ← Voltar
+                    </button>
+                    <button type="submit" class="btn btn-continuar">>
+                        Continuar →
                     </button>
                 </div>
             </form>
@@ -663,6 +772,7 @@
         // =================================================================================================================================
         // LÓGICAS PARA VEÍCULO CORPORATIVO
         // =================================================================================================================================
+
 
         /**
          * FUNÇÃO: Lógica para exibir/ocultar campos de quantidade de caminhão (Corporativo)
@@ -740,7 +850,7 @@
         }
 
         // =================================================================================================================================
-        // LÓGICAS PARA VEÍCULO TERCEIRIZADO (NOVAS FUNÇÕES)
+        // LÓGICAS PARA VEÍCULO TERCEIRIZADO
         // =================================================================================================================================
 
         /**
@@ -829,7 +939,8 @@
         function handleConditionalLogic() {
             // Variáveis de controle de perguntas principais (Corporativo)
             const q1IsYes = document.querySelector('input[name="q1_veiculo_corporativo"]:checked')?.value === 'true'; // Veículo Corporativo
-            const q2IsYes = document.querySelector('input[name="q2_motorista_profissional"]:checked')?.value === 'true'; // Motorista Profissional
+            const q2aIsYes = document.querySelector('input[name="q2a_motorista_profissional"]:checked')?.value === 'true'; // Motorista Profissional
+            const q2bIsYes = document.querySelector('input[name="q2b_motorista_nao_profissional"]:checked')?.value === 'true'; // Motorista NÃO Profissional
             const q3aIsYes = document.querySelector('input[name="q3a_caminhao"]:checked')?.value === 'true'; // Há uso de Caminhão? (Corp)
             const q3bIsYes = document.querySelector('input[name="q3b_automovel"]:checked')?.value === 'true'; // Há uso de Automóvel? (Corp)
 
@@ -848,21 +959,24 @@
             const subCaminhaoBlock = document.getElementById('sub-caminhao-block');
             const subAutomovelBlock = document.getElementById('sub-automovel-block');
 
-            // Blocos condicionais aninhados (sub-perguntas Terceirizados - NOVOS IDS)
+            // Blocos condicionais aninhados (sub-perguntas Terceirizados)
             const subCaminhaoTercBlock = document.getElementById('sub-caminhao-block-terc');
             const subAutomovelTercBlock = document.getElementById('sub-automovel-block-terc');
 
 
-            /* --- LÓGICA PRINCIPAL (Q1, Q2, Q3 - Corporativo) --- */
+            /* --- LÓGICA PRINCIPAL (Q1, Q2a, Q2b - Corporativo) --- */
 
-            // Lógica para Bloco 1 (Q2 depende de Q1="Sim")
+            // Lógica para Bloco 1 (Q2a e Q2b dependem de Q1="Sim")
             if (conditionalBlock1) {
                 if (q1IsYes) {
                     conditionalBlock1.classList.add('visible');
                 } else {
                     conditionalBlock1.classList.remove('visible');
-                    // Reset Q2 e todos os blocos e perguntas aninhadas
-                    document.querySelectorAll('input[name="q2_motorista_profissional"]').forEach(radio => radio.checked = false);
+                    // Reset Q2a, Q2b e todos os blocos e perguntas aninhadas
+                    document.querySelectorAll('input[name="q2a_motorista_profissional"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q2b_motorista_nao_profissional"]').forEach(radio => radio.checked = false);
+                    hideAndResetQuantityInput('q2a_motorista_profissional'); // Reset da Qtd de Profissional (NOVO)
+                    hideAndResetQuantityInput('q2b_motorista_nao_profissional'); // Reset da Qtd de Não Profissional
 
                     if (conditionalBlock2) {
                         conditionalBlock2.classList.remove('visible');
@@ -875,9 +989,35 @@
                 }
             }
 
-            // Lógica para Bloco 2 (Q3a e Q3b dependem de Q2="Sim" E Q1="Sim")
+            /* --- LÓGICA ADICIONAL PARA Qtd Motorista PROFISSIONAL (Q2a="Sim") --- */
+            const q2aYesInputContainer = document.querySelector('[data-input-for="q2a_motorista_profissional"]');
+            if (q2aYesInputContainer) {
+                // Se o Bloco 1 estiver visível (Q1=Sim) E Q2a for "Sim"
+                if (q1IsYes && q2aIsYes) {
+                    q2aYesInputContainer.classList.add('visible');
+                    q2aYesInputContainer.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q2a_motorista_profissional');
+                }
+            }
+
+            /* --- LÓGICA ADICIONAL PARA Qtd Motorista NÃO Profissional (Q2b="Sim") --- */
+            const q2bYesInputContainer = document.querySelector('[data-input-for="q2b_motorista_nao_profissional"]');
+            if (q2bYesInputContainer) {
+                // Se o Bloco 1 estiver visível (Q1=Sim) E Q2b for "Sim"
+                if (q1IsYes && q2bIsYes) {
+                    q2bYesInputContainer.classList.add('visible');
+                    q2bYesInputContainer.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q2b_motorista_nao_profissional');
+                }
+            }
+
+
+            // Lógica para Bloco 2 (Q3a e Q3b dependem de Q2a="Sim" E Q1="Sim")
+            // O Bloco 2 pergunta sobre veículos de motoristas PROFISSIONAIS, portanto só depende de Q2a="Sim"
             if (conditionalBlock2) {
-                if (q1IsYes && q2IsYes) {
+                if (q1IsYes && q2aIsYes) {
                     conditionalBlock2.classList.add('visible');
                 } else {
                     conditionalBlock2.classList.remove('visible');
@@ -907,8 +1047,8 @@
 
             // Lógica para Sub-bloco Caminhão (Cargas - Corporativo) - Depende de Q3a="Sim"
             if (subCaminhaoBlock) {
-                // Aparece se: Q1=Sim AND Q2=Sim AND Q3a=Sim
-                if (q1IsYes && q2IsYes && q3aIsYes) {
+                // Aparece se: Q1=Sim AND Q2a=Sim AND Q3a=Sim
+                if (q1IsYes && q2aIsYes && q3aIsYes) {
                     subCaminhaoBlock.classList.add('visible');
                     handleCaminhaoQuantityFields();
                 } else {
@@ -922,8 +1062,8 @@
 
             // Lógica para Sub-bloco Automóvel (Detalhes - Corporativo) - Depende de Q3b="Sim"
             if (subAutomovelBlock) {
-                // Aparece se: Q1=Sim AND Q2=Sim AND Q3b=Sim
-                if (q1IsYes && q2IsYes && q3bIsYes) {
+                // Aparece se: Q1=Sim AND Q2a=Sim AND Q3b=Sim
+                if (q1IsYes && q2aIsYes && q3bIsYes) {
                     subAutomovelBlock.classList.add('visible');
                     handleAutomovelQuantityFields();
                 } else {
@@ -996,11 +1136,50 @@
             if (subAutomovelBlock && subAutomovelBlock.classList.contains('visible')) handleAutomovelQuantityFields();
             if (subCaminhaoTercBlock && subCaminhaoTercBlock.classList.contains('visible')) handleCaminhaoTercQuantityFields();
             if (subAutomovelTercBlock && subAutomovelTercBlock.classList.contains('visible')) handleAutomovelTercQuantityFields();
+
+            /* --- LÓGICA Q5, Q6, Q7 (Simples) --- */
+
+            // Lógica para Veículo de Aluguel (Q5)
+            const q5IsYes = document.querySelector('input[name="q5_veiculo_aluguel"]:checked')?.value === 'true';
+            const q5InputContainer = document.querySelector('[data-input-for="q5_veiculo_aluguel"]');
+            if (q5InputContainer) {
+                if (q5IsYes) {
+                    q5InputContainer.classList.add('visible');
+                    q5InputContainer.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q5_veiculo_aluguel');
+                }
+            }
+
+            // Lógica para Taxi (Q6)
+            const q6IsYes = document.querySelector('input[name="q6_veiculo_taxi"]:checked')?.value === 'true';
+            const q6InputContainer = document.querySelector('[data-input-for="q6_veiculo_taxi"]');
+            if (q6InputContainer) {
+                if (q6IsYes) {
+                    q6InputContainer.classList.add('visible');
+                    q6InputContainer.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q6_veiculo_taxi');
+                }
+            }
+
+            // Lógica para Veículo Não Motorizado (Q7)
+            const q7IsYes = document.querySelector('input[name="q7_veiculo_nao_motorizado"]:checked')?.value === 'true';
+            const q7InputContainer = document.querySelector('[data-input-for="q7_veiculo_nao_motorizado"]');
+            if (q7InputContainer) {
+                if (q7IsYes) {
+                    q7InputContainer.classList.add('visible');
+                    q7InputContainer.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q7_veiculo_nao_motorizado');
+                }
+            }
         }
+
 
         // Adiciona um único listener no formulário e chama a lógica em qualquer mudança
         document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('pnatrans-form');
+            const form = document.getElementById('especificacoes-form');
 
             form.addEventListener('change', (event) => {
                 if (event.target.type === 'radio') {
@@ -1013,6 +1192,66 @@
             handleConditionalLogic();
         });
 
+    </script>
+
+    <script>
+        /* ============================================================
+           SALVAR NO LOCALSTORAGE
+           ============================================================ */
+        function normalizeValue(value) {
+            if (value === "true") return true;
+            if (value === "false") return false;
+            if (!isNaN(value) && value.trim() !== "") return Number(value);
+            return value;
+        }
+
+        function saveEspecificacoesToLocal() {
+            const form = document.getElementById("especificacoes-form");
+            const formData = new FormData(form);
+            const data = {};
+
+            formData.forEach((value, key) => {
+                data[key] = normalizeValue(value);
+            });
+
+            localStorage.setItem("especificacoes_form", JSON.stringify(data));
+        }
+
+        /* ============================================================
+           RECARREGAR AO VOLTAR
+           ============================================================ */
+        function restoreEspecificacoesFromLocal() {
+            const saved = localStorage.getItem("especificacoes_form");
+            if (!saved) return;
+
+            const data = JSON.parse(saved);
+
+            Object.entries(data).forEach(([key, value]) => {
+                const input = document.querySelector(`[name="${key}"]`);
+                if (!input) return;
+
+                if (input.type === "radio") {
+                    const radio = document.querySelector(`input[name="${key}"][value="${value}"]`);
+                    if (radio) radio.checked = true;
+                } else {
+                    input.value = value;
+                }
+            });
+
+            // Reaplica a lógica visual
+            handleConditionalLogic();
+        }
+
+        window.addEventListener("DOMContentLoaded", restoreEspecificacoesFromLocal);
+
+        /* ============================================================
+           SUBMIT → APENAS SALVA E CONTINUA
+           ============================================================ */
+        document.getElementById("especificacoes-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            saveEspecificacoesToLocal();
+            window.location.href = "questionario.html";
+        });
     </script>
 
 

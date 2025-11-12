@@ -110,66 +110,34 @@
         </footer>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> 
-
     <script>
-        // Inicialização da conexão com o Supabase (mantida)
-        const SUPABASE_URL = "https://dodiijuzedniteeagbye.supabase.co"; // substitua pelo seu
-        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvZGlpanV6ZWRuaXRlZWFnYnllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1MTE0MDYsImV4cCI6MjA3NTA4NzQwNn0.wxhfS6pEjtcWFvKhvwIhIjLXMBiYg7j74SVnFAxDH4s"; // substitua pela sua chave anônima pública
+document.getElementById("empresa-form").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-        const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const formData = new FormData(this);
+    const data = {};
 
-        // Adiciona o Listener ao formulário de empresa
-        document.getElementById("empresa-form").addEventListener("submit", async (event) => {
-            event.preventDefault();
+    formData.forEach((v, k) => data[k] = v);
 
-            console.log("Formulário Submetido. Iniciando processamento...");
+    localStorage.setItem("empresa_form", JSON.stringify(data));
+
+    // Não envia ao banco aqui. Apenas segue para próximo passo.
+    window.location.href = "especificacoes.html";
+});
+
+// Se voltar para página, restaurar valores
+window.addEventListener("DOMContentLoaded", () => {
+    const saved = localStorage.getItem("empresa_form");
+    if (!saved) return;
+    const data = JSON.parse(saved);
+    Object.entries(data).forEach(([k, v]) => {
+        const input = document.querySelector(`[name="${k}"]`);
+        if (input) input.value = v;
+    });
+});
+</script>
 
 
-            // Função auxiliar para converter o valor de string para um número ou null
-            const getNumberValue = (id) => {
-                const value = document.getElementById(id).value;
-                // Retorna o valor como número, ou null se for uma string vazia
-                return value === "" ? null : Number(value);
-            };
-
-            // 1. COLETAR E CONVERTER DADOS
-            const dadosEmpresa = {
-                // Campos de texto (mantidos como string)
-                nome: document.getElementById("nome-empresa").value,
-                setor: document.getElementById("setor").value,
-
-                // Campos de quantidade (CONVERTIDOS para Número - int8 no banco)
-                qtd_funcionarios: getNumberValue("qtd_funcionarios"),
-                qtd_automovel: getNumberValue("qtd_automovel"),
-                qtd_caminhao: getNumberValue("qtd_caminhao"),
-                qtd_onibus: getNumberValue("qtd_onibus"),
-                qtd_motocicleta: getNumberValue("qtd_motocicleta"),
-                qtd_empresa_terceirizada: getNumberValue("qtd_empresa_terceirizada"),
-            };
-
-            // 2. INSERÇÃO NO SUPABASE
-            const { data: empresaData, error: errorEmpresa } = await client
-                .from("empresa") // Tabela correta
-                .insert([dadosEmpresa])
-                .select();
-
-            // 3. TRATAMENTO DE ERRO
-            if (errorEmpresa) {
-                // Use 'alert' e 'console.error' para ver exatamente qual erro o Supabase está retornando
-                console.error("ERRO DETALHADO DO SUPABASE:", errorEmpresa);
-                alert("Erro ao cadastrar Empresa! Detalhes no Console do Navegador (F12). Mensagem: " + errorEmpresa.message);
-                return;
-            }
-
-            // 4. SUCESSO
-            console.log("Empresa cadastrada com sucesso:", empresaData);
-            alert("Empresa cadastrada com sucesso! Prossiga para a próxima etapa.");
-
-            // Redireciona para a próxima página após o cadastro
-            window.location.href = 'especificacoes.html';
-        });
-    </script>
 
 </body>
 

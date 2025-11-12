@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário Empresas</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* CSS Básico (Mantido) */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* NOVO LARANJA: #FFB81C (Amarelado e Escuro) */
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            background-color: #FFB81C;
+            /* Cor Atualizada */
+            color: white;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-area {
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            margin: 0 0 5px 0;
+            font-weight: 700;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .main-grid {
+            display: flex;
+            gap: 30px;
+        }
+
+        .col-left {
+            flex: 0 0 300px;
+        }
+
+        .col-right {
+            flex-grow: 1;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .card-nav {
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+
+        .card-nav h2 {
+            margin-top: 0;
+            color: #FFB81C;
+            /* Cor Atualizada */
+            font-weight: 700;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            cursor: pointer;
+            color: #555;
+            transition: color 0.3s;
+        }
+
+        .step:not(.active):hover {
+            color: #FFB81C;
+        }
+
+        /* Cor Atualizada */
+        .step.active {
+            font-weight: 700;
+            color: #FFB81C;
+        }
+
+        /* Cor Atualizada */
+        .step-num {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 0.8em;
+            color: #777;
+        }
+
+        .step.active .step-num {
+            border-color: #FFB81C;
+            background-color: #fff8e6;
+            /* Cor de fundo ajustada */
+            color: #FFB81C;
+        }
+
+        /* Cor Atualizada */
+        .step.completed .step-num {
+            border-color: #4CAF50;
+            background-color: #e8f5e9;
+            color: #4CAF50;
+        }
+
+        .step .fa-check {
+            font-size: 0.7em;
+        }
+
+        .question-section h3 {
+            color: #333;
+            font-size: 1.8em;
+            border-bottom: 2px solid #FFB81C;
+            /* Cor Atualizada */
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .question-section h3 i {
+            color: #FFB81C;
+            /* Cor Atualizada */
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+            appearance: none;
+            background-color: white;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23333333%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-5.4H18.6c-5%200-9.3%203.4-11%208.7-1.6%205.4.1%2011.6%204.6%2015.7l133.5%20131c3.9%203.8%209%205.7%2014.2%205.7s10.3-1.9%2014.2-5.7l133.5-131c4.5-4.1%206.2-10.3%204.6-15.7z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 12px;
+        }
+
+        select.input-error {
+            border-color: red !important;
+            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
+        }
+
+        /* ESTILO DO BOTÃO DE NAVEGAÇÃO (Próximo Passo/Enviar Dados) */
+        .btn-nav {
+            background-color: #FFB81C;
+            /* Cor Atualizada */
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            float: right;
+            /* CORREÇÃO AQUI: Margem aumentada para descer o botão */
+            margin-top: 50px;
+        }
+
+        .btn-nav:hover {
+            background-color: #D49B0E;
+            /* Cor do Hover Atualizada */
+        }
+
+        /* ESTILO DO BOTÃO VOLTAR */
+        .btn-nav-voltar {
+            background-color: #FFB81C;
+            /* Cor Atualizada */
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            float: right;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .btn-nav-voltar:hover {
+            background-color: #D49B0E;
+            /* Cor do Hover Atualizada */
+        }
+
+
+        .submit-area {
+            text-align: center;
+            padding: 40px;
+            margin-top: 30px;
+            border: 2px dashed #FFB81C;
+            /* Cor Atualizada */
+        }
+
+        .submit-area h2 {
+            color: #FFB81C;
+            /* Cor Atualizada */
+            font-size: 2em;
+        }
+
+        #submit-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        #submit-button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            border-left: 5px solid red;
+            background-color: #fff0f0;
+            color: #cc0000;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .error-message h3 {
+            color: red;
+        }
+
+        /* Estilos do Stepper de Temas (FIX DEFINITIVO) */
+        .theme-stepper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 10px;
+        }
+
+        .theme-step {
+            display: flex;
+            align-items: center;
+            /* Centraliza o conteúdo (nome + check) */
+            flex-grow: 1;
+            min-height: 25px;
+            padding: 0 25px 0 10px;
+            /* Aumentei o padding direito para dar espaço ao separador */
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            position: relative;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        /* O Separador no INÍCIO de Cargas Perigosas (PRIMEIRO ITEM) */
+        .theme-step:first-child::before {
+            content: "\f054";
+            /* Ícone Chevron-right/Angle-right */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: -10px;
+            /* Posiciona um pouco fora, à esquerda */
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8em;
+            margin-right: 5px;
+            /* Espaçamento entre o > e o texto */
+        }
+
+        /* Separador > (centralização absoluta) - AGORA SÓ PRECISA DO :not(:last-child) */
+        .theme-step:not(:last-child)::after {
+            content: "\f054";
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 0px;
+            /* Posiciona na borda do padding */
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8em;
+        }
+
+        .theme-step.current {
+            color: white;
+            font-weight: 700;
+        }
+
+        /* Mudar a cor do > no primeiro item se for o current */
+        .theme-step.current:first-child::before {
+            color: white;
+        }
+
+        .theme-step.completed {
+            color: #f7ff25;
+            /* Amarelo claro para Concluído */
+            font-weight: 700;
+        }
+
+        .theme-step.completed i.fa-check {
+            color: #4CAF50;
+            margin-left: 5px;
+            font-size: 1em;
+        }
+
+        .theme-step.current .theme-name {
+            border-bottom: 2px solid white;
+            padding-bottom: 2px;
+        }
+
+        .theme-step.completed .theme-name {
+            border-bottom: 2px solid #f7ff25;
+            padding-bottom: 2px;
+        }
+
+        .theme-step .theme-name {
+            transition: border-bottom 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <header class="header">
+
+            <div class="header-top">
+                <div class="logo-area">
+                    <i class="fas fa-file-alt fa-2x logo-icon"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Questionário</h1>
+                    <p>Preencha os passos para gerar seu Plano de Ação.</p>
+                </div>
+            </div>
+
+            <nav id="theme-stepper" class="theme-stepper">
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <form id="questionario-form">
+
+                <div class="main-grid">
+
+                    <div class="col-left">
+                        <div class="card card-nav">
+                            <h2 id="current-theme-title">Carregando Tema...</h2>
+                            <ul class="step-list" id="sidebar-nav">
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-right">
+                        <div id="questions-area">
+                            <div class="card question-section">
+                                <p style="text-align: center;"><i class="fas fa-spinner fa-spin"></i> Carregando
+                                    dados...</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </form><button type="button" class="btn btn-nav-voltar"
+                onclick="window.location.href = 'especificacoes.html'">
+                ← Voltar
+            </button>
+        </main>
+    </div>
+
+    <script>
+        // ** PASSO 1: INICIALIZAÇÃO DO SUPABASE **
+        const SUPABASE_URL = 'https://dodiijuzedniteeagbye.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvZGlpanV6ZWRuaXRlZWFnYnllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1MTE0MDYsImV4cCI6MjA3NTA4NzQwNn0.wxhfS6pEjtcWFvKhvwIhIjLXMBiYg7j74SVnFAxDH4s';
+
+        const { createClient } = supabase;
+        const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // LEITURA CORRETA DO ID DA EMPRESA
+        let empresaId = localStorage.getItem('id_empresa');
+
+        // Usa o ID do localStorage ou MOCK 1 se não existir
+        const FINAL_EMPRESA_ID = empresaId ? parseInt(empresaId) : 1;
+
+        if (!empresaId) {
+            console.warn("ID da Empresa não encontrado no localStorage. Usando ID 1 (MOCK).");
+        }
+
+
+
+        // Mapeamento dos códigos dos subtemas (do usuário)
+        const SUBTEMA_MAP = {
+            'st1': 'Equipamentos de Proteção',
+            'st2': 'Escolha do Veículo',
+            'st3': 'Monitoramento e Controle',
+            'st4': 'Plano de resposta e emergência',
+            'st5': 'Práticas de RH',
+            'st6': 'Procedimentos no pós-acidente',
+            'st7': 'Seleção e Capacitação',
+        };
+
+        // Ordem dos Temas 
+        const THEMES_ORDER = [
+            'Cargas Perigosas', 'Cargas Não-Perigosas', 'Passageiros',
+            'Frota Leve', 'Motocicleta', 'Não-Motorizado'
+        ];
+
+        const SUBTHEMES_ORDER = Object.values(SUBTEMA_MAP);
+
+        // Icones para cada tema
+        const themeIcons = {
+            'Cargas Perigosas': 'fa-fire-alt',
+            'Cargas Não-Perigosas': 'fa-box',
+            'Passageiros': 'fa-user-friends',
+            'Frota Leve': 'fa-car-side',
+            'Motocicleta': 'fa-motorcycle',
+            'Não-Motorizado': 'fa-bicycle',
+        };
+
+        // Variáveis de Estado
+        let allThemes = {};
+        let themesList = [];
+        let currentThemeIndex = 0;
+        let currentSubthemeIndex = 0;
+        const progressSelections = {};
+
+        // Opções para o select
+        const progressOptions = [
+            { value: "", text: "Selecione o Nível de Progresso" },
+            { value: "sem_progresso", text: "Sem progresso" },
+            { value: "progresso_inicial", text: "Progresso inicial" },
+            { value: "progresso_intermediario", text: "Progresso intermediário" },
+            { value: "progresso_avancado", text: "Progresso avançado" }
+        ];
+
+        // Mapeamento para o DB
+        const responseValues = {
+            "sem_progresso": 0,
+            "progresso_inicial": 1,
+            "progresso_intermediario": 2,
+            "progresso_avancado": 3
+        };
+
+        /**
+         * FUNÇÕES DE UTILIDADE E VALIDAÇÃO
+         */
+
+        function isThemeCompleted(themeName) {
+            const subthemesInTheme = allThemes[themeName];
+            if (!subthemesInTheme) return false;
+
+            for (const subthemeName in subthemesInTheme) {
+                const activities = subthemesInTheme[subthemeName];
+                const responses = progressSelections[themeName]?.[subthemeName] || {};
+
+                if (activities.length === 0 || Object.keys(responses).length !== activities.length || Object.values(responses).some(val => val === "")) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function getSubthemesForCurrentTheme() {
+            const currentThemeName = themesList[currentThemeIndex];
+            if (!currentThemeName) return [];
+            const availableSubthemes = allThemes[currentThemeName];
+            if (!availableSubthemes) return [];
+            return SUBTHEMES_ORDER.filter(stName => availableSubthemes.hasOwnProperty(stName));
+        }
+
+        function validateCurrentStep() {
+            const currentSection = document.querySelector('.question-section[data-subtheme]');
+            if (!currentSection) return true;
+
+            const requiredSelects = currentSection.querySelectorAll('select[required]');
+            let isValid = true;
+
+            requiredSelects.forEach(select => {
+                select.classList.remove('input-error');
+                if (!select.value) {
+                    isValid = false;
+                    select.classList.add('input-error');
+                }
+            });
+
+            if (!isValid) {
+                alert('Por favor, selecione o Nível de Progresso para todas as atividades antes de avançar.');
+            }
+            return isValid;
+        }
+
+        /**
+         * FUNÇÕES DE RENDERIZAÇÃO
+         */
+
+        function renderThemeStepper() {
+            const stepper = document.getElementById('theme-stepper');
+            stepper.innerHTML = '';
+
+            themesList.forEach((themeName, index) => {
+                let stepClass = 'theme-step';
+
+                if (index === currentThemeIndex) {
+                    stepClass += ' current';
+                }
+
+                if (isThemeCompleted(themeName)) {
+                    stepClass += ' completed';
+                }
+
+                const stepDiv = document.createElement('div');
+                stepDiv.className = stepClass;
+                stepDiv.dataset.themeIndex = index;
+                stepDiv.innerHTML = `
+                    <span class="theme-name">${themeName}</span>
+                    ${isThemeCompleted(themeName) ? '<i class="fas fa-check"></i>' : ''}
+                `;
+
+                stepDiv.addEventListener('click', () => goToTheme(index));
+                stepper.appendChild(stepDiv);
+            });
+        }
+
+        function renderSidebar() {
+            const currentThemeName = themesList[currentThemeIndex];
+            if (!currentThemeName) return;
+            document.getElementById('current-theme-title').textContent = currentThemeName;
+            const sidebarNav = document.getElementById('sidebar-nav');
+            sidebarNav.innerHTML = '';
+            const subthemes = getSubthemesForCurrentTheme();
+
+            subthemes.forEach((subthemeName, index) => {
+                let iconHtml = `<span class="step-num">${index + 1}</span>`;
+                let stepClass = 'step';
+
+                // Determina se este é o passo de envio (o último tema E "Seleção e Capacitação")
+                const isLastTheme = currentThemeIndex === themesList.length - 1;
+                const isSubmissionStep = isLastTheme && (subthemeName === 'Seleção e Capacitação');
+
+                if (index === currentSubthemeIndex) { stepClass += ' active'; }
+
+                const subthemeActivities = allThemes[currentThemeName][subthemeName];
+                const responses = progressSelections[currentThemeName]?.[subthemeName] || {};
+                const isCompleted = subthemeActivities.length > 0 && Object.keys(responses).length === subthemeActivities.length && Object.values(responses).every(val => val !== "");
+
+                if (isCompleted) {
+                    stepClass += ' completed';
+                    iconHtml = `<span class="step-num"><i class="fas fa-check"></i></span>`;
+                }
+
+                const listItem = document.createElement('li');
+                listItem.className = stepClass;
+                listItem.dataset.stepIndex = index;
+                // Altera o texto na barra lateral se for o passo final
+                listItem.innerHTML = `${iconHtml} ${isSubmissionStep ? 'Gerar Plano' : subthemeName}`;
+                listItem.addEventListener('click', (e) => {
+                    const targetIndex = parseInt(e.currentTarget.dataset.stepIndex);
+                    goToSubtheme(targetIndex);
+                });
+                sidebarNav.appendChild(listItem);
+            });
+        }
+
+        function renderQuestions() {
+            const currentThemeName = themesList[currentThemeIndex];
+            const subthemes = getSubthemesForCurrentTheme();
+            const currentSubthemeName = subthemes[currentSubthemeIndex];
+            const questionsArea = document.getElementById('questions-area');
+
+            // Verifica se chegamos ao fim do questionário (além do último subtema do último tema)
+            const isLastTheme = themesList.length > 0 && currentThemeIndex === themesList.length - 1;
+            const isLastSubtheme = subthemes.length > 0 && currentSubthemeIndex === subthemes.length - 1;
+
+            // CONDIÇÃO DE SUBMISSÃO: Último tema E subtema "Seleção e Capacitação"
+            const isSubmissionStep = isLastTheme && (currentSubthemeName === 'Seleção e Capacitação');
+
+
+            if (isLastTheme && isLastSubtheme && !isSubmissionStep) {
+                // Se for a tela de "finalizado" (caso "Seleção e Capacitação" não seja o último da lista)
+                questionsArea.innerHTML = `
+					<div class="card submit-area">
+						<h2><i class="fas fa-clipboard-list"></i> Questionário Concluído!</h2>
+						<p>Clique abaixo para enviar os dados e gerar seu Plano de Ação.</p>
+						<button type="submit" id="submit-button" onclick="submitForm(event)">Enviar Dados</button>
+					</div>
+				`;
+                return;
+            }
+
+
+            // Se não houver subtema (após o final) ou for um estado inválido
+            if (!currentThemeName || !currentSubthemeName) {
+                questionsArea.innerHTML = `
+					<div class="card submit-area">
+						<h2><i class="fas fa-clipboard-list"></i> Questionário Concluído!</h2>
+						<p>Todos os temas foram preenchidos. Clique no botão para finalizar o processo.</p>
+						<button type="submit" id="submit-button" onclick="submitForm(event)">Enviar Dados</button>
+					</div>
+				`;
+                return;
+            }
+
+
+            const activities = allThemes[currentThemeName][currentSubthemeName];
+            const themeIcon = themeIcons[currentThemeName] || 'fa-car-side';
+
+            let html = `
+                <section class="card question-section" data-subtheme="${currentSubthemeName}">
+                    <h3><i class="fas ${themeIcon}"></i> ${currentSubthemeName}</h3>
+            `;
+
+            activities.forEach(activity => {
+                const activityId = activity.id;
+                const savedValue = progressSelections[currentThemeName]?.[currentSubthemeName]?.[activityId] || "";
+
+                html += `
+                    <div class="form-group">
+                        <label for="${activityId}">${activity.atividade}</label>
+                        <select id="${activityId}" name="${activityId}" data-activity-id="${activityId}" required onchange="saveProgress(this)">
+                            ${progressOptions.map(option =>
+                    `<option value="${option.value}" ${savedValue === option.value ? 'selected' : ''}>${option.text}</option>`
+                ).join('')}
+                        </select>
+                    </div>
+                `;
+            });
+
+            // LÓGICA DO BOTÃO
+            const buttonText = isSubmissionStep ?
+                'Enviar Dados <i class="fas fa-paper-plane"></i>' :
+                'Próximo Passo <i class="fas fa-arrow-right"></i>';
+            const buttonAction = isSubmissionStep ?
+                'submitForm(event)' :
+                'nextStep()';
+            const buttonType = isSubmissionStep ? 'submit' : 'button';
+
+            html += `
+                    <button type="${buttonType}" class="btn-nav next-step-btn" onclick="${buttonAction}">
+                        ${buttonText}
+                    </button>
+                </section>
+            `;
+
+            questionsArea.innerHTML = html;
+        }
+
+        /**
+         * FUNÇÕES DE NAVEGAÇÃO E CONTROLE
+         */
+
+        function saveProgress(selectElement) {
+            const activityId = selectElement.dataset.activityId;
+            const value = selectElement.value;
+            const currentThemeName = themesList[currentThemeIndex];
+            const currentSubthemeName = getSubthemesForCurrentTheme()[currentSubthemeIndex];
+
+            if (!progressSelections[currentThemeName]) progressSelections[currentThemeName] = {};
+            if (!progressSelections[currentThemeName][currentSubthemeName]) progressSelections[currentThemeName][currentSubthemeName] = {};
+
+            progressSelections[currentThemeName][currentSubthemeName][activityId] = value;
+
+            renderSidebar();
+            renderThemeStepper();
+        }
+
+        function nextStep() {
+            if (!validateCurrentStep()) { return; }
+
+            const subthemes = getSubthemesForCurrentTheme();
+
+            if (currentSubthemeIndex < subthemes.length - 1) {
+                currentSubthemeIndex++;
+                goToSubtheme(currentSubthemeIndex);
+                return;
+            }
+
+            if (currentThemeIndex < themesList.length - 1) {
+                currentThemeIndex++;
+                currentSubthemeIndex = 0;
+
+                renderThemeStepper();
+                renderSidebar();
+                renderQuestions();
+                return;
+            }
+        }
+
+        function goToSubtheme(targetIndex) {
+            currentSubthemeIndex = targetIndex;
+            renderSidebar();
+            renderQuestions();
+            document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goToTheme(targetThemeIndex) {
+            if (targetThemeIndex >= 0 && targetThemeIndex < themesList.length) {
+                currentThemeIndex = targetThemeIndex;
+                currentSubthemeIndex = 0;
+
+                renderThemeStepper();
+                renderSidebar();
+                renderQuestions();
+                document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        /**
+         * FUNÇÕES DE BUSCA, PROCESSAMENTO E SUBMISSÃO
+         */
+
+        async function fetchQuestionsFromSupabase() {
+            const loadingMsg = document.getElementById('questions-area');
+
+            try {
+                const { data, error } = await client
+                    .from('perguntas_empresa')
+                    .select('id, tema, subtema, atividade')
+                    .order('id', { ascending: true });
+
+                if (error) {
+                    throw new Error(`Erro do Supabase: ${error.message}. Detalhes: ${error.details}`);
+                }
+
+                if (!data || data.length === 0) {
+                    throw new Error("A tabela 'perguntas_empresa' está vazia.");
+                }
+
+                return data || [];
+
+            } catch (e) {
+                console.error('ERRO FATAL NA BUSCA DE DADOS:', e);
+
+                loadingMsg.innerHTML = `
+                    <div class="card error-message">
+                        <h3><i class="fas fa-exclamation-triangle"></i> ERRO DE CONEXÃO/DADOS</h3>
+                        <p style="font-weight: bold;">Não foi possível carregar as perguntas.</p>
+                        <p>Mensagem: ${e.message.split('Detalhes:')[0]}</p>
+                        <p>Verifique o Console para mais detalhes técnicos.</p>
+                    </div>
+                `;
+                document.getElementById('current-theme-title').textContent = 'Erro';
+                return [];
+            }
+        }
+
+        function processRawData(rawData) {
+            return rawData.reduce((acc, curr) => {
+                const themeKey = curr.tema;
+                const subthemeKey = curr.subtema;
+                if (!acc[themeKey]) { acc[themeKey] = {}; }
+                if (!acc[themeKey][subthemeKey]) { acc[themeKey][subthemeKey] = []; }
+                acc[themeKey][subthemeKey].push(curr);
+                return acc;
+            }, {});
+        }
+
+        async function submitForm(event) {
+            event.preventDefault();
+
+            if (!validateCurrentStep()) { return; }
+
+            // Solicita confirmação do usuário (Requisito 3)
+            const confirmation = confirm("Ao clicar em 'OK', você concorda em fornecer estes dados ao ONSV para a geração do seu Plano de Ação.");
+
+            if (!confirmation) {
+                return; // O usuário cancelou, interrompe o processo
+            }
+
+            // Usar o target para obter o botão, seja ele um botão "submit" ou "button"
+            const submitButton = event.currentTarget || document.getElementById('submit-button');
+
+            if (!submitButton) return;
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Enviando Respostas...';
+
+            const responsesToInsert = [];
+
+            // 1. Iterar e formatar para o DB
+            for (const theme in progressSelections) {
+                for (const subtheme in progressSelections[theme]) {
+                    for (const questionId in progressSelections[theme][subtheme]) {
+                        const selectedValue = progressSelections[theme][subtheme][questionId];
+
+                        if (selectedValue && responseValues.hasOwnProperty(selectedValue)) {
+                            responsesToInsert.push({
+                                empresa_id: FINAL_EMPRESA_ID, // Usa o ID lido do localStorage ou MOCK
+                                question_id: questionId,
+                                resposta: responseValues[selectedValue]
+                            });
+                        }
+                    }
+                }
+            }
+
+            if (responsesToInsert.length === 0) {
+                alert("Nenhuma resposta válida para salvar.");
+                submitButton.disabled = false;
+                submitButton.textContent = 'Enviar Dados'; // Botão final
+                return;
+            }
+
+            // 2. Inserir no Supabase (tabela respostas_empresa)
+            try {
+                // AQUI VOCÊ DEVE INSERIR SUA LÓGICA DE DELETAR RESPOSTAS ANTIGAS DA EMPRESA (OPCIONAL)
+
+                const { error } = await client
+                    .from('respostas_empresa')
+                    .insert(responsesToInsert);
+
+                if (error) {
+                    throw new Error(error.message);
+                }
+
+                alert("Sucesso! Respostas salvas e Plano de Ação gerado.");
+                submitButton.textContent = 'Plano Gerado!';
+
+            } catch (e) {
+                console.error("ERRO AO SALVAR RESPOSTAS:", e);
+                alert("Ocorreu um erro ao salvar as respostas. Verifique o RLS da tabela 'respostas_empresa'. Mensagem: " + e.message);
+                submitButton.disabled = false;
+                submitButton.textContent = 'Tente Novamente';
+            }
+        }
+
+        // INICIALIZAÇÃO DO QUESTIONÁRIO
+        async function initQuestionnaire() {
+            const fetchedData = await fetchQuestionsFromSupabase();
+
+            if (fetchedData.length === 0) {
+                return;
+            }
+
+            const processedThemes = processRawData(fetchedData);
+
+            allThemes = processedThemes;
+            themesList = THEMES_ORDER.filter(t => allThemes.hasOwnProperty(t));
+
+            if (themesList.length > 0) {
+                renderThemeStepper();
+                renderSidebar();
+                renderQuestions();
+            } else {
+                const loadingMsg = document.getElementById('questions-area');
+                loadingMsg.innerHTML = '<p style="text-align: center; color: red;">Dados carregados, mas sem Temas/Subtemas válidos. Verifique a grafia das colunas `tema` e `subtema` no seu DB.</p>';
+            }
+        }
+
+        // Inicia o questionário ao carregar a página
+        window.onload = initQuestionnaire;
+        // Carrega respostas das páginas anteriores para poder salvar depois
+        const especificacoesForm = JSON.parse(localStorage.getItem("especificacoes_form"));
+
+
+    </script>
+</body>
+
+</html>
