@@ -451,7 +451,7 @@
         const { createClient } = supabase;
         const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // LEITURA CORRETA DO ID DA EMPRESA
+        /* LEITURA CORRETA DO ID DA EMPRESA
         let empresaId = localStorage.getItem('id_empresa');
 
         // Usa o ID do localStorage ou MOCK 1 se não existir
@@ -459,7 +459,7 @@
 
         if (!empresaId) {
             console.warn("ID da Empresa não encontrado no localStorage. Usando ID 1 (MOCK).");
-        }
+        }*/
 
 
 
@@ -497,7 +497,8 @@
         let themesList = [];
         let currentThemeIndex = 0;
         let currentSubthemeIndex = 0;
-        const progressSelections = {};
+        // VARIÁVEL DE ESTADO COM PROGRESSO SALVO/CARREGADO DO LOCAL STORAGE
+        let progressSelections = {};
 
         // Opções para o select
         const progressOptions = [
@@ -686,12 +687,13 @@
 
             activities.forEach(activity => {
                 const activityId = activity.id;
+                // Pega o valor salvo na variável de estado (que foi carregada do localStorage)
                 const savedValue = progressSelections[currentThemeName]?.[currentSubthemeName]?.[activityId] || "";
 
                 html += `
                     <div class="form-group">
                         <label for="${activityId}">${activity.atividade}</label>
-                        <select id="${activityId}" name="${activityId}" data-activity-id="${activityId}" required onchange="saveProgress(this)">
+                        <select id="${activityId}" name="${activityId}" data-activity-id="${activity.id}" required onchange="saveProgress(this)">
                             ${progressOptions.map(option =>
                     `<option value="${option.value}" ${savedValue === option.value ? 'selected' : ''}>${option.text}</option>`
                 ).join('')}
@@ -733,6 +735,10 @@
             if (!progressSelections[currentThemeName][currentSubthemeName]) progressSelections[currentThemeName][currentSubthemeName] = {};
 
             progressSelections[currentThemeName][currentSubthemeName][activityId] = value;
+
+            // ** MODIFICAÇÃO: Salvar o progresso no localStorage a cada alteração **
+            localStorage.setItem('progressSelections', JSON.stringify(progressSelections));
+            // *******************************************************************
 
             renderSidebar();
             renderThemeStepper();
@@ -829,77 +835,247 @@
             }, {});
         }
 
+        function toInt(v) {
+            if (v === null || v === undefined || v === "") return null;
+            const n = Number(v);
+            return isNaN(n) ? null : n;
+        }
+
+        // Dentro do <script> em questionario.html
+        function mapAndPrepareEspecificacoes(formData) {
+            // Função auxiliar para converter "true"/"false" para booleano, ou null/false se a chave não existir
+            const toBool = (v) => v === 'true';
+
+            // Função auxiliar para converter string em número (int), retornando 0 se for nulo/vazio
+            const toIntOrZero = (v) => {
+                if (v === null || v === undefined || v === "") return 0;
+                const n = Number(v);
+                return isNaN(n) ? 0 : n;
+            };
+
+            // ----------------------------------------------------------------
+            // 1. DADOS DA TABELA transporte_uso_veiculo
+            const transporte_uso_veiculo = {
+                // Uso de Tipos de Veículo
+                veiculo_corporativo: toBool(formData.q1_veiculo_corporativo),
+                veiculo_terceirizado: toBool(formData.q4_veiculo_terceiros),
+                veiculo_aluguel: toBool(formData.q5_veiculo_aluguel),
+                veiculo_taxi: toBool(formData.q6_veiculo_app_taxi || formData.q6_veiculo_tax), // Usando q6_veiculo_app_taxi que é o nome real, e caindo para q6_veiculo_tax como fallback
+                veiculo_nao_motorizado: toBool(formData.q7_veiculo_nao_motorizado),
+
+                // Quantidades
+                qtd_veiculo_aluguel: toIntOrZero(formData.qtd_veiculo_aluguel),
+                qtd_taxi: toIntOrZero(formData.qtd_veiculo_app_taxi || formData.qtd_veiculo_tax), // Usando o nome do input real
+                qtd_veiculo_nao_motorizado: toIntOrZero(formData.qtd_veiculo_nao_motorizado)
+            };
+
+            // ----------------------------------------------------------------
+            // 2. DADOS DA TABELA veiculo_corporativo
+            const veiculo_corporativo = {
+                // Motoristas
+                motorista_profissional: toBool(formData.q2a_motorista_profissional),
+                motorista_nao_profissional: toBool(formData.q2b_motorista_nao_profissional),
+                qtd_motorista_profissional: toIntOrZero(formData.qtd_motorista_profissional),
+                qtd_motorista_nao_profissional: toIntOrZero(formData.qtd_motorista_nao_profissional),
+
+                // Tipos de Veículo Corp. (Uso)
+                uso_caminhao: toBool(formData.q3a_caminhao),
+                uso_onibus: null, // Ausente no HTML
+                uso_automovel: toBool(formData.q3b_automovel),
+                uso_moto: null, // Ausente no HTML
+
+                // Caminhão - Cargas
+                uso_carga_perigosa_camin_corp: toBool(formData.q3aa_caminhao_cargas_perigosas),
+                qtd_carga_perigosa_camin_corp: toIntOrZero(formData.qtd_caminhao_perigosa),
+                uso_carga_nao_perigosa_camin_corp: toBool(formData.q3ab_caminhao_cargas_nao_perigosas),
+                qtd_carga_nao_perigosa_camin_corp: toIntOrZero(formData.qtd_caminhao_nao_perigosa),
+
+                // Automóvel - Cargas/Passageiros
+                uso_carga_perigosa_autom_corp: toBool(formData.q3ba_automovel_cargas_perigosas),
+                qtd_carga_perigosa_autom_corp: toIntOrZero(formData.qtd_automovel_cargas_perigosas),
+                uso_carga_nao_perigosa_autom_corp: toBool(formData.q3bb_automovel_cargas_nao_perigosas),
+                qtd_carga_nao_perigosa_autom_corp: toIntOrZero(formData.qtd_automovel_cargas_nao_perigosas),
+                uso_passag_corp: toBool(formData.q3bc_automovel_passageiros),
+                qtd_passag_corp: toIntOrZero(formData.qtd_automovel_passageiros)
+            };
+
+            // ----------------------------------------------------------------
+            // 3. DADOS DA TABELA veiculo_terceirizado
+            const veiculo_terceirizado = {
+                // Tipos de Veículo Terceiro (Uso)
+                uso_caminhao: toBool(formData.q4a_caminhao_terceiros),
+                uso_onibus: null, // Ausente no HTML
+                uso_automovel: toBool(formData.q4b_automovel_terceiros),
+
+                // Caminhão Terceiro - Cargas
+                uso_carga_perigosa_caminhao_terc: toBool(formData.q4aa_caminhao_terc_cargas_perigosas),
+                qtd_carga_perigosa_caminhao_terc: toIntOrZero(formData.qtd_caminhao_terc_perigosa),
+                uso_carga_nao_perigosa_caminhao_terc: toBool(formData.q4ab_caminhao_terc_cargas_nao_perigosas),
+                qtd_carga_nao_perigosa_caminhao_terc: toIntOrZero(formData.qtd_caminhao_terc_nao_perigosa),
+
+                // Automóvel Terceiro - Cargas/Passageiros
+                uso_carga_perigosa_autom_terc: toBool(formData.q4ba_automovel_terc_cargas_perigosas),
+                qtd_carga_perigosa_autom_terc: toIntOrZero(formData.qtd_automovel_terc_cargas_perigosas),
+                uso_carga_nao_perigosa_autom_terc: toBool(formData.q4bb_automovel_terc_cargas_nao_perigosas),
+                qtd_carga_nao_perigosa_autom_terc: toIntOrZero(formData.qtd_automovel_terc_cargas_nao_perigosas),
+                uso_passag_autom_terc: toBool(formData.q4bc_automovel_terc_passageiros),
+                qtd_passag_autom_terc: toIntOrZero(formData.qtd_automovel_terc_passageiros)
+            };
+
+            return { transporte_uso_veiculo, veiculo_corporativo, veiculo_terceirizado };
+        }
+
+        // Dentro do <script> em questionario.html
         async function submitForm(event) {
             event.preventDefault();
 
-            if (!validateCurrentStep()) { return; }
+            if (!validateCurrentStep()) return;
 
-            // Solicita confirmação do usuário (Requisito 3)
-            const confirmation = confirm("Ao clicar em 'OK', você concorda em fornecer estes dados ao ONSV para a geração do seu Plano de Ação.");
+            const confirmation = confirm("Ao clicar em OK, seus dados serão enviados para geração do Plano.");
+            if (!confirmation) return;
 
-            if (!confirmation) {
-                return; // O usuário cancelou, interrompe o processo
-            }
-
-            // Usar o target para obter o botão, seja ele um botão "submit" ou "button"
-            const submitButton = event.currentTarget || document.getElementById('submit-button');
-
-            if (!submitButton) return;
-
+            const submitButton = event.currentTarget;
             submitButton.disabled = true;
-            submitButton.textContent = 'Enviando Respostas...';
+            submitButton.textContent = "Enviando...";
 
-            const responsesToInsert = [];
+            // 🔹 Carregar dados das páginas anteriores
+            const empresaLocal = JSON.parse(localStorage.getItem("empresa_form") || "{}");
+            const especificacoesLocal = JSON.parse(localStorage.getItem("especificacoes_form") || "{}");
 
-            // 1. Iterar e formatar para o DB
-            for (const theme in progressSelections) {
-                for (const subtheme in progressSelections[theme]) {
-                    for (const questionId in progressSelections[theme][subtheme]) {
-                        const selectedValue = progressSelections[theme][subtheme][questionId];
+            // 🔹 1. Montar payload da empresa (tabela 'empresa')
+            const companyPayload = {
+                nome: empresaLocal.nome || empresaLocal["nome-empresa"] || "Empresa não informada",
+                setor: empresaLocal.setor || null,
 
-                        if (selectedValue && responseValues.hasOwnProperty(selectedValue)) {
+                // Campos de especificação que você tinha na tabela 'empresa'
+                qtd_automovel: toInt(especificacoesLocal.qtd_automovel),
+                qtd_caminhao: toInt(especificacoesLocal.qtd_caminhao),
+                qtd_onibus: toInt(especificacoesLocal.qtd_onibus),
+                qtd_motocicleta: toInt(especificacoesLocal.qtd_motocicleta),
+
+                qtd_empresa_terceirizada: toInt(especificacoesLocal.qtd_empresa_terceirizada),
+                qtd_funcionarios: toInt(especificacoesLocal.qtd_funcionarios),
+
+                id_responsavel: toInt(especificacoesLocal.id_responsavel)
+            };
+
+            // 🔹 Mapear dados das especificações para as tabelas de transporte
+            const { transporte_uso_veiculo, veiculo_corporativo, veiculo_terceirizado } = mapAndPrepareEspecificacoes(especificacoesLocal);
+
+
+            try {
+                // 1. CRIAR EMPRESA (obrigatório para ter a chave primária `empresaId`)
+                const { data: empresaCriada, error: empresaErro } = await client
+                    .from("empresa")
+                    .insert(companyPayload)
+                    .select()
+                    .single();
+
+                if (empresaErro) throw empresaErro;
+
+                const empresaId = empresaCriada.id;
+
+                // 2. INSERIR NA TABELA transporte_uso_veiculo
+                // Adiciona a FK da empresa
+                const baseVeiculoPayload = { ...transporte_uso_veiculo, empresa_id: empresaId };
+
+                const { data: baseVeiculoCriado, error: baseVeiculoErro } = await client
+                    .from('transporte_uso_veiculo')
+                    .insert([baseVeiculoPayload])
+                    .select()
+                    .single();
+
+                if (baseVeiculoErro) throw baseVeiculoErro;
+
+                const baseVeiculoId = baseVeiculoCriado.id; // ID da tabela base, usado como FK nas tabelas detalhe
+
+                // 3. INSERIR NA TABELA veiculo_corporativo
+                const corporativoPayload = {
+                    ...veiculo_corporativo,
+                    id_transp_uso_veiculo: baseVeiculoId // Adiciona FK da tabela base
+                };
+                const { error: corporativoErro } = await client
+                    .from('veiculo_corporativo')
+                    .insert([corporativoPayload]);
+
+                if (corporativoErro) throw corporativoErro;
+
+
+                // 4. INSERIR NA TABELA veiculo_terceirizado
+                const terceirizadoPayload = {
+                    ...veiculo_terceirizado,
+                    id_transp_uso_veiculo: baseVeiculoId // Adiciona FK da tabela base
+                };
+                const { error: terceirizadoErro } = await client
+                    .from('veiculo_terceirizado')
+                    .insert([terceirizadoPayload]);
+
+                if (terceirizadoErro) throw terceirizadoErro;
+
+                
+                // 5. MONTAR E INSERIR RESPOSTAS DO QUESTIONÁRIO (Lógica existente)
+                const responsesToInsert = [];
+
+                for (const theme in progressSelections) {
+                    for (const subtheme in progressSelections[theme]) {
+                        for (const questionId in progressSelections[theme][subtheme]) {
+
+                            const nivel = progressSelections[theme][subtheme][questionId];
+                            if (!nivel) continue;
+
                             responsesToInsert.push({
-                                empresa_id: FINAL_EMPRESA_ID, // Usa o ID lido do localStorage ou MOCK
+                                empresa_id: empresaId,
                                 question_id: questionId,
-                                resposta: responseValues[selectedValue]
+                                resposta: responseValues[nivel]
                             });
                         }
                     }
                 }
-            }
 
-            if (responsesToInsert.length === 0) {
-                alert("Nenhuma resposta válida para salvar.");
-                submitButton.disabled = false;
-                submitButton.textContent = 'Enviar Dados'; // Botão final
-                return;
-            }
+                if (responsesToInsert.length === 0) {
+                    alert("Nenhuma resposta válida para salvar. Salvando apenas informações da empresa/frota.");
+                } else {
+                    const { error: respostasErro } = await client
+                        .from("respostas_empresa")
+                        .insert(responsesToInsert);
 
-            // 2. Inserir no Supabase (tabela respostas_empresa)
-            try {
-                // AQUI VOCÊ DEVE INSERIR SUA LÓGICA DE DELETAR RESPOSTAS ANTIGAS DA EMPRESA (OPCIONAL)
-
-                const { error } = await client
-                    .from('respostas_empresa')
-                    .insert(responsesToInsert);
-
-                if (error) {
-                    throw new Error(error.message);
+                    if (respostasErro) throw respostasErro;
                 }
 
-                alert("Sucesso! Respostas salvas e Plano de Ação gerado.");
-                submitButton.textContent = 'Plano Gerado!';
+                // 6. Limpar localStorage e Sucesso
+                localStorage.removeItem("progressSelections");
+                localStorage.removeItem("empresa_form");
+                localStorage.removeItem("especificacoes_form");
 
-            } catch (e) {
-                console.error("ERRO AO SALVAR RESPOSTAS:", e);
-                alert("Ocorreu um erro ao salvar as respostas. Verifique o RLS da tabela 'respostas_empresa'. Mensagem: " + e.message);
+                alert("Dados enviados com sucesso! Seu Plano de Ação foi gerado.");
+                submitButton.textContent = "Plano Gerado!";
+
+                // 🚀 LINHA ADICIONADA: Redireciona para a página de resultados
+                window.location.href = 'resultados.html';
+
+            } catch (err) {
+                console.error("ERRO COMPLETO:", err);
+                alert("Erro ao enviar dados. Verifique o console para detalhes: " + err.message);
                 submitButton.disabled = false;
-                submitButton.textContent = 'Tente Novamente';
+                submitButton.textContent = "Tente Novamente";
             }
         }
 
+
         // INICIALIZAÇÃO DO QUESTIONÁRIO
         async function initQuestionnaire() {
+            // ** MODIFICAÇÃO: Carregar o progresso salvo do localStorage (se existir) **
+            const savedProgress = localStorage.getItem('progressSelections');
+            if (savedProgress) {
+                try {
+                    progressSelections = JSON.parse(savedProgress);
+                } catch (e) {
+                    console.error("Erro ao parsear progresso do localStorage:", e);
+                    progressSelections = {};
+                }
+            }
+            // ************************************************************************
+
             const fetchedData = await fetchQuestionsFromSupabase();
 
             if (fetchedData.length === 0) {
@@ -910,6 +1086,9 @@
 
             allThemes = processedThemes;
             themesList = THEMES_ORDER.filter(t => allThemes.hasOwnProperty(t));
+
+            // Garante que o índice atual do tema e subtema reflita o progresso salvo, se houver
+            // (Esta parte pode ser mais complexa dependendo da regra de avanço, mas por padrão, começa do 0)
 
             if (themesList.length > 0) {
                 renderThemeStepper();

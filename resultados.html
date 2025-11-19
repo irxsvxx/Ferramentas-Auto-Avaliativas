@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Resultados do Diagnóstico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08)
+        }
+
+        .header {
+            padding: 30px;
+            background: #FFB81C;
+            color: #fff
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 18px
+        }
+
+        .logo-area .fa-chart-pie {
+            font-size: 2.8rem
+        }
+
+        .main-content {
+            padding: 30px
+        }
+
+        .btn-nav-voltar {
+            background: #FFB81C;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            float: left;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px
+        }
+
+        .chart-card,
+        .selection-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 10px;
+            border: 1px solid #e6e6e6;
+            height: 540px;
+            display: flex;
+            flex-direction: column
+        }
+
+        .chart-card h2 {
+            margin: 0 0 8px 0;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #f4f4f4;
+            padding-bottom: 10px
+        }
+
+        .bar-chart-svg,
+        .radar-chart-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible
+        }
+
+        .radar-grid {
+            fill: none;
+            stroke: #d7d7d7;
+            stroke-width: 1.2
+        }
+
+        .axis-line {
+            stroke: #cfcfcf;
+            stroke-width: 1.2
+        }
+
+        .data-polygon {
+            fill-opacity: 0.28;
+            stroke-width: 3.5;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+            transition: 0.35s ease
+        }
+
+        .radar-point {
+            r: 4;
+            fill: white;
+            stroke-width: 2.5
+        }
+
+        .axis-label {
+            font-size: 13px;
+            fill: #333;
+            font-weight: 500
+        }
+
+        .selection-list {
+            list-style: disc;
+            padding-left: 18px
+        }
+
+        .selection-list li {
+            margin: 8px 0;
+            cursor: pointer
+        }
+
+        .selection-list li.selected {
+            background: #2E9D8F;
+            color: #fff;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-block
+        }
+
+        .btn-action {
+            margin-top: auto;
+            padding: 10px 14px;
+            border-radius: 4px;
+            border: 1px solid #bdbdbd;
+            background: #fff;
+            cursor: pointer
+        }
+
+        @media (max-width:1000px) {
+            .results-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* small helpers for centering labels that may overflow */
+        .chart-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 6px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-top">
+                <div class="logo-area"><i class="fas fa-chart-pie"></i></div>
+                <div>
+                    <h1>Resultados do Diagnóstico</h1>
+                    <p style="margin:0;color:#fff;opacity:.95">Veja a maturidade da sua empresa e gere seu plano de
+                        ação.</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="results-grid">
+
+                <!-- BARRAS (Maturidade por Tema) -->
+                <div class="chart-card">
+                    <h2>Maturidade por Tema</h2>
+                    <svg id="bar-chart" class="bar-chart-svg" viewBox="0 0 620 360"
+                        preserveAspectRatio="xMidYMid meet"></svg>
+                </div>
+
+                <!-- RADAR — mostra subtema selecionado / global -->
+                <div class="chart-card" id="card-q2">
+                    <h2 id="chart2-title">MATURIDADE POR SUBTEMA</h2>
+                    <p id="chart2-subtitle" style="text-align:center;color:#555;margin:6px 0 12px 0">(Selecione um tema
+                        ou subtema)</p>
+                    <svg id="radar-q2" class="radar-chart-svg" viewBox="0 0 500 500"
+                        preserveAspectRatio="xMidYMid meet"></svg>
+                </div>
+
+                <!-- Seleção: Temas e Subtemas -->
+                <div class="selection-card">
+                    <div style="margin-bottom:10px">Selecione um tema ou um subtema abaixo para <strong>atualizar os
+                            gráficos</strong>.</div>
+                    <div style="display:flex;gap:18px;flex:1;align-items:flex-start">
+                        <div style="flex:1">
+                            <h3>Temas</h3>
+                            <ul class="selection-list" id="theme-list">
+                                <li data-theme="Cargas Perigosas">Cargas Perigosas</li>
+                                <li data-theme="Cargas Não-Perigosas">Cargas Não-Perigosas</li>
+                                <li data-theme="Passageiros">Passageiros</li>
+                                <li data-theme="Frota Leve">Frota Leve</li>
+                                <li data-theme="Motocicleta">Motocicleta</li>
+                                <li data-theme="Não-Motorizado">Não-Motorizado</li>
+                            </ul>
+                        </div>
+                        <div style="flex:1">
+                            <h3>Subtemas</h3>
+                            <ul class="selection-list" id="subtheme-list">
+                                <li data-sub="Equipamentos de Proteção">Equipamentos de Proteção</li>
+                                <li data-sub="Escolha do Veículo">Escolha do Veículo</li>
+                                <li data-sub="Monitoramento e Controle">Monitoramento e Controle</li>
+                                <li data-sub="Plano de resposta e emergência">Plano de resposta e emergência</li>
+                                <li data-sub="Práticas de RH">Práticas de RH</li>
+                                <li data-sub="Procedimentos no pós-acidente">Procedimentos no pós-acidente</li>
+                                <li data-sub="Seleção e Capacitação">Seleção e Capacitação</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RADAR Q4: quando clicar em tema mostra seus subtemas -->
+                <div class="chart-card" id="card-q4">
+                    <h2 id="chart4-title">CARGAS PERIGOSAS</h2>
+                    <p id="chart4-subtitle" style="text-align:center;color:#555;margin:6px 0 12px 0">(Exibindo: Todos os
+                        Subtemas)</p>
+                    <svg id="radar-q4" class="radar-chart-svg" viewBox="0 0 500 500"
+                        preserveAspectRatio="xMidYMid meet"></svg>
+                </div>
+
+            </div>
+
+            <button type="button" class="btn-nav-voltar" onclick="window.location.href = 'questionario.html'">← Voltar ao Questionário</button>
+        </main>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        /* =========================
+           Versão corrigida e robusta
+           - busca perguntas_empresa para contar questões e calcular limites por tema/subtema
+           - agrega respostas_empresa
+           - percentuais corretos para: barras, radar global de subtemas, radar por tema
+           - fallback quando perguntas_empresa não estiver disponível
+           ========================= */
+
+        const SUPABASE_URL = 'https://dodiijuzedniteeagbye.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvZGlpanV6ZWRuaXRlZWFnYnllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1MTE0MDYsImV4cCI6MjA3NTA4NzQwNn0.wxhfS6pEjtcWFvKhvwIhIjLXMBiYg7j74SVnFAxDH4s';
+        const { createClient } = supabase;
+        const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // seus limites de tema (mantidos)
+        const limitesTema = {
+            "Cargas Perigosas": 72,
+            "Cargas Não-Perigosas": 72,
+            "Passageiros": 72,
+            "Frota Leve": 72,
+            "Motocicleta": 72,
+            "Não-Motorizado": 18
+        };
+
+        // se perguntas_empresa não estiver disponível, estes são os limites globais por subtema
+        // (mantive os valores que você já tinha como fallback)
+        const limitesSubtemaFallback = {
+            "Equipamentos de Proteção": 15,
+            "Escolha do Veículo": 45,
+            "Monitoramento e Controle": 126,
+            "Plano de resposta e emergência": 15,
+            "Práticas de RH": 36,
+            "Procedimentos no pós-acidente": 48,
+            "Seleção e Capacitação": 33
+        };
+
+        const THEMES_ORDER = Object.keys(limitesTema);
+        const SUBTHEMES_ORDER = Object.keys(limitesSubtemaFallback);
+
+        let lastAggregated = null;
+
+        // ---------- helpers ----------
+        function parseQuestionId(qid) {
+            if (!qid || typeof qid !== 'string') return null;
+            const m = qid.match(/^t(\d+)_st(\d+)_q(\d+)$/i);
+            if (!m) return null;
+            return { t: Number(m[1]), st: Number(m[2]), q: Number(m[3]) };
+        }
+        function themeFromTcode(tnum) { return THEMES_ORDER[tnum - 1] || null; }
+        function subthemeFromStcode(stnum) { return SUBTHEMES_ORDER[stnum - 1] || null; }
+
+        // ---------- SVG renderers (bars + radar) ----------
+        function renderBarChart(themePercents) {
+            const svg = document.getElementById('bar-chart');
+            const w = 760, h = 420;
+            const left = 90, bottom = 330; // left maior para espaço do eixo Y
+            svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+            // GRID: 0..100 em passos de 10 (mais parecido com Excel)
+            let grid = '';
+            for (let i = 0; i <= 10; i++) {
+                const pct = i * 10;                     // 0,10,...100
+                // map pct -> y (inverte para que 0 fique em bottom)
+                const y = bottom - (pct / 100) * (bottom - 40);
+                grid += `<line x1="${left}" y1="${y}" x2="${w - 40}" y2="${y}" stroke="#e8e8e8" stroke-width="1"/>`;
+                grid += `<text x="${left - 18}" y="${y + 4}" font-size="13" fill="#666" text-anchor="end">${pct}%</text>`;
+            }
+
+            // BARRAS
+            const barWidth = 70;
+            const totalBars = THEMES_ORDER.length;
+            const availableWidth = (w - left - 60);
+            const gap = (availableWidth - (barWidth * totalBars)) / Math.max(1, totalBars - 1);
+            const colors = ['#2E9D8F', '#4CAF50', '#7BC96A', '#A8D08A', '#C8E09B', '#DFF3D6'];
+
+            let bars = '';
+
+            for (let i = 0; i < totalBars; i++) {
+                const theme = THEMES_ORDER[i];
+                const pct = Math.max(0, Math.min(100, Number(themePercents[theme] || 0)));
+
+                const barHeight = (pct / 100) * (bottom - 60);
+                const x = left + i * (barWidth + gap);
+                const y = bottom - barHeight;
+                const fill = colors[i % colors.length];
+
+                // barra
+                bars += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" rx="6" fill="${fill}"></rect>`;
+
+                // porcentagem: tenta sempre acima da barra; se muito próximo do topo, coloca dentro da barra (mais legível)
+                let pctY = y - 12;               // padrão: 12px acima da barra
+                const topLimit = 18;            // 18px do topo mínimo
+                if (pctY < topLimit) {
+                    // barra muito alta -> colocar o texto dentro da barra, com cor contrastante
+                    pctY = y + 18;
+                    bars += `<text x="${x + barWidth / 2}" y="${pctY}" font-size="12" text-anchor="middle" fill="#fff" font-weight="700">${pct}%</text>`;
+                } else {
+                    bars += `<text x="${x + barWidth / 2}" y="${pctY}" font-size="12" text-anchor="middle" fill="#333" font-weight="700">${pct}%</text>`;
+                }
+
+                // label do tema: use foreignObject para quebra simples e centralização
+                // quebramos na primeira ocorrência de espaço (mantém nomes curtos em linha única quando possível)
+                const splitted = (typeof theme === 'string') ? theme.replace(' ', '<br>') : String(theme);
+                bars += `<foreignObject x="${x}" y="${bottom + 12}" width="${barWidth}" height="46">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                         style="font-size:12px; text-align:center; color:#333; line-height:13px; word-wrap:break-word;">
+                        ${splitted}
+                    </div>
+                 </foreignObject>`;
+            }
+
+            svg.innerHTML = `<g>${grid}</g>${bars}`;
+        }
+
+
+        // radar: values are expected 0..100 (percent)
+        function renderRadar(svgId, values, strokeColor, fillColor) {
+            const svg = document.getElementById(svgId);
+            const size = 540;            // visual size of svg
+            const cx = size / 2, cy = size / 2;
+            const maxR = 200;           // radius used for 100%
+            const n = SUBTHEMES_ORDER.length;
+            const angleStep = (Math.PI * 2) / n;
+            svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+
+            // concentric polygons
+            let grid = '';
+            for (let lvl = 1; lvl <= 4; lvl++) {
+                const r = (lvl / 4) * maxR;
+                let pts = [];
+                for (let i = 0; i < n; i++) {
+                    const ang = -Math.PI / 2 + i * angleStep;
+                    pts.push(`${cx + Math.cos(ang) * r},${cy + Math.sin(ang) * r}`);
+                }
+                grid += `<polygon class="radar-grid" points="${pts.join(' ')}" />`;
+            }
+
+            // axes + labels
+            let axes = '', labels = '';
+            for (let i = 0; i < n; i++) {
+                const ang = -Math.PI / 2 + i * angleStep;
+                const x = cx + Math.cos(ang) * maxR;
+                const y = cy + Math.sin(ang) * maxR;
+                axes += `<line class="axis-line" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" />`;
+
+                const lx = cx + Math.cos(ang) * (maxR + 30);
+                const ly = cy + Math.sin(ang) * (maxR + 30);
+                let anchor = 'middle';
+                if (Math.cos(ang) > 0.2) anchor = 'start';
+                if (Math.cos(ang) < -0.2) anchor = 'end';
+                labels += `<text class="axis-label" x="${lx}" y="${ly}" text-anchor="${anchor}">${SUBTHEMES_ORDER[i]}</text>`;
+            }
+
+            // data polygon + points
+            let dataPts = '', points = '';
+            for (let i = 0; i < n; i++) {
+                const pct = Math.max(0, Math.min(100, Number(values[i] || 0)));
+                const r = (pct / 100) * maxR;
+                const ang = -Math.PI / 2 + i * angleStep;
+                const x = cx + Math.cos(ang) * r;
+                const y = cy + Math.sin(ang) * r;
+                dataPts += `${x},${y} `;
+                points += `<circle class="radar-point" cx="${x}" cy="${y}" stroke="${strokeColor}" />`;
+            }
+
+            const polygon = `<polygon class="data-polygon" points="${dataPts.trim()}" stroke="${strokeColor}" fill="${fillColor}"></polygon>`;
+            svg.innerHTML = `<g>${grid}</g><g>${axes}</g><g>${labels}</g>${polygon}${points}`;
+        }
+
+        function renderRadarWithCustomAxes(svgId, values, axisLabels, strokeColor, fillColor) {
+            const svg = document.getElementById(svgId);
+            const size = 540;
+            const cx = size / 2, cy = size / 2;
+            const maxR = 200;
+            const n = values.length;
+            const angleStep = (Math.PI * 2) / n;
+            svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+
+            // grid
+            let grid = '', labels = '';
+            for (let lvl = 1; lvl <= 4; lvl++) {
+                const r = (lvl / 4) * maxR;
+                let pts = [];
+                for (let i = 0; i < n; i++) {
+                    const ang = -Math.PI / 2 + i * angleStep;
+                    pts.push(`${cx + Math.cos(ang) * r},${cy + Math.sin(ang) * r}`);
+                }
+                grid += `<polygon class="radar-grid" points="${pts.join(' ')}" />`;
+            }
+
+            // labels (custom)
+            for (let i = 0; i < n; i++) {
+                const ang = -Math.PI / 2 + i * angleStep;
+                const lx = cx + Math.cos(ang) * (maxR + 30);
+                const ly = cy + Math.sin(ang) * (maxR + 30);
+                let anchor = 'middle';
+                if (Math.cos(ang) > 0.2) anchor = 'start';
+                if (Math.cos(ang) < -0.2) anchor = 'end';
+                labels += `<text class="axis-label" x="${lx}" y="${ly}" text-anchor="${anchor}">${axisLabels[i]}</text>`;
+            }
+
+            let dataPts = '', points = '';
+            for (let i = 0; i < n; i++) {
+                const pct = Math.max(0, Math.min(100, Number(values[i] || 0)));
+                const r = (pct / 100) * maxR;
+                const ang = -Math.PI / 2 + i * angleStep;
+                const x = cx + Math.cos(ang) * r;
+                const y = cy + Math.sin(ang) * r;
+                dataPts += `${x},${y} `;
+                points += `<circle class="radar-point" cx="${x}" cy="${y}" stroke="${strokeColor}" />`;
+            }
+
+            const polygon = `<polygon class="data-polygon" points="${dataPts.trim()}" stroke="${strokeColor}" fill="${fillColor}"></polygon>`;
+            svg.innerHTML = `<g>${grid}</g><g>${labels}</g>${polygon}${points}`;
+        }
+
+        // ---------- aggregation ----------
+        function aggregateResponses(rows) {
+            const themeSums = {};
+            const subthemeSumsByTheme = {};
+            const subthemeSumsGlobal = {};
+
+            THEMES_ORDER.forEach(t => {
+                themeSums[t] = 0;
+                subthemeSumsByTheme[t] = {};
+                SUBTHEMES_ORDER.forEach(st => subthemeSumsByTheme[t][st] = 0);
+            });
+            SUBTHEMES_ORDER.forEach(st => subthemeSumsGlobal[st] = 0);
+
+            rows.forEach(r => {
+                const qid = r.question_id;
+                const val = Number(r.resposta); // espera 0..3
+                if (!qid || isNaN(val)) return;
+                const parsed = parseQuestionId(qid);
+                if (!parsed) return;
+                const themeName = themeFromTcode(parsed.t);
+                const subName = subthemeFromStcode(parsed.st);
+                if (!themeName || !subName) return;
+
+                themeSums[themeName] += val;
+                subthemeSumsByTheme[themeName][subName] += val;
+                subthemeSumsGlobal[subName] += val;
+            });
+
+            return { themeSums, subthemeSumsByTheme, subthemeSumsGlobal };
+        }
+
+        // ---------- compute limits from perguntas_empresa (preferred) ----------
+        async function computeLimitsFromPerguntas() {
+            // returns:
+            // { themeSubCounts: { theme: { sub: count } }, subGlobalCounts: { sub: totalCount }, themeLimits: {...}, subLimitsGlobal: {...}, themeSubLimits: { theme: { sub: maxPoints } } }
+            try {
+                const { data, error } = await client
+                    .from('perguntas_empresa')
+                    .select('id,tema,subtema');
+
+                if (error) throw error;
+                if (!data || !Array.isArray(data) || data.length === 0) {
+                    // no perguntas table / empty -> fallback
+                    return null;
+                }
+
+                // count questions per theme+subtheme
+                const themeSubCounts = {};       // theme -> sub -> count
+                const subGlobalCounts = {};      // sub -> total count
+                const themeLimits = {};          // theme -> maxPoints (sum per theme *3)
+                const subLimitsGlobal = {};      // sub -> maxPoints overall
+                const themeSubLimits = {};       // theme -> sub -> maxPoints (per theme-sub)
+
+                data.forEach(row => {
+                    const id = row.id; // like 't1_st2_q3'
+                    const parsed = parseQuestionId(id);
+                    if (!parsed) return;
+                    const theme = themeFromTcode(parsed.t);
+                    const sub = subthemeFromStcode(parsed.st);
+                    if (!theme || !sub) return;
+
+                    themeSubCounts[theme] = themeSubCounts[theme] || {};
+                    themeSubCounts[theme][sub] = (themeSubCounts[theme][sub] || 0) + 1;
+
+                    subGlobalCounts[sub] = (subGlobalCounts[sub] || 0) + 1;
+                });
+
+                // convert counts to point-limits (each question = 3 points)
+                THEMES_ORDER.forEach(t => {
+                    themeLimits[t] = 0;
+                    themeSubLimits[t] = {};
+                    (SUBTHEMES_ORDER).forEach(st => {
+                        const cnt = (themeSubCounts[t] && themeSubCounts[t][st]) || 0;
+                        const pts = cnt * 3;
+                        themeSubLimits[t][st] = pts;
+                        themeLimits[t] += pts;
+                    });
+                });
+
+                SUBTHEMES_ORDER.forEach(st => {
+                    const cnt = subGlobalCounts[st] || 0;
+                    subLimitsGlobal[st] = cnt * 3;
+                });
+
+                return { themeSubCounts, subGlobalCounts, themeLimits, subLimitsGlobal, themeSubLimits };
+            } catch (e) {
+                console.warn('Não foi possível calcular limites a partir de perguntas_empresa:', e);
+                return null;
+            }
+        }
+
+        // ---------- main load & render ----------
+        async function loadAndRenderAll() {
+            const empresaRaw = localStorage.getItem('id_empresa');
+            const empresaId = empresaRaw ? Number(empresaRaw) : null;
+
+            // compute limits from perguntas table if possible
+            const computed = await computeLimitsFromPerguntas();
+            // computed may be null => fallback to your fallback constantes
+
+            try {
+                if (!empresaId) {
+                    console.warn('id_empresa não encontrado. Usando demo/fallback.');
+                    // dummy fallback
+                    const fakeThemePerc = {
+                        "Cargas Perigosas": 65,
+                        "Cargas Não-Perigosas": 54,
+                        "Passageiros": 72,
+                        "Frota Leve": 48,
+                        "Motocicleta": 58,
+                        "Não-Motorizado": 40
+                    };
+                    const fakeSubs = [60, 50, 45, 40, 35, 48, 55];
+                    renderBarChart(fakeThemePerc);
+                    renderRadar('radar-q2', fakeSubs, '#5B2CFF', 'rgba(91,44,255,0.22)');
+                    renderRadar('radar-q4', fakeSubs, '#2E9D8F', 'rgba(46,157,143,0.22)');
+                    return;
+                }
+
+                const { data, error } = await client
+                    .from('respostas_empresa')
+                    .select('question_id,resposta')
+                    .eq('empresa_id', empresaId);
+
+                if (error) throw error;
+                if (!data || !Array.isArray(data) || data.length === 0) {
+                    console.warn('Nenhuma resposta retornada para empresa_id=', empresaId);
+                    // render zeros
+                    const zerosTheme = {};
+                    THEMES_ORDER.forEach(t => zerosTheme[t] = 0);
+                    const zerosSub = SUBTHEMES_ORDER.map(() => 0);
+                    renderBarChart(zerosTheme);
+                    renderRadar('radar-q2', zerosSub, '#5B2CFF', 'rgba(91,44,255,0.12)');
+                    renderRadar('radar-q4', zerosSub, '#2E9D8F', 'rgba(46,157,143,0.12)');
+                    return;
+                }
+
+                // aggregate responses (sums of respostas 0..3)
+                lastAggregated = aggregateResponses(data);
+
+                // ---------- Theme percents (bars) ----------
+                // Use your limitesTema (you provided these)
+                const themePercents = {};
+                THEMES_ORDER.forEach(t => {
+                    const sum = lastAggregated.themeSums[t] || 0;
+                    const max = limitesTema[t] || 1;
+                    const pct = Math.round((sum / max) * 100);
+                    themePercents[t] = Math.max(0, Math.min(100, pct));
+                });
+
+                // ---------- Subtheme global percents (radar-q2) ----------
+                // If computed subLimits exist, use them; otherwise fallback to your constant limitesSubtemaFallback
+                const subLimitsGlobal = (computed && computed.subLimitsGlobal) ? computed.subLimitsGlobal : limitesSubtemaFallback;
+                const subPercGlobal = SUBTHEMES_ORDER.map(st => {
+                    const sum = lastAggregated.subthemeSumsGlobal[st] || 0;
+                    const max = (subLimitsGlobal[st] || 1);
+                    const pct = Math.round((sum / max) * 100);
+                    return Math.max(0, Math.min(100, pct));
+                });
+
+                // ---------- Subtheme per-first-theme percents (radar-q4) ----------
+                // For per-theme radar we must divide by the per-theme-sub limit, not the global sub limit.
+                // computed.themeSubLimits[theme][sub] contains per-theme-sub maxima (if available)
+                const firstTheme = THEMES_ORDER[0];
+                const subPercFirst = SUBTHEMES_ORDER.map(st => {
+                    const sum = lastAggregated.subthemeSumsByTheme[firstTheme][st] || 0;
+                    // prefer computed per-theme-sub limit when available
+                    let max = 0;
+                    if (computed && computed.themeSubLimits && computed.themeSubLimits[firstTheme] !== undefined) {
+                        max = computed.themeSubLimits[firstTheme][st] || 0;
+                    }
+                    // fallback: derive per-theme-sub from global (divide by number of themes that contributed)
+                    if (!max) {
+                        const globalCount = subLimitsGlobal[st] || limitesSubtemaFallback[st] || 1;
+                        // if globalCount is points (like 126), try estimate per-theme by dividing by number of themes (6)
+                        // safest fallback: use a small number to avoid dividing by huge global
+                        // We'll estimate number of themes that have this subtema by counting computed.subGlobalCounts if available:
+                        let themesWithSub = 5; // default typical
+                        if (computed && computed.subGlobalCounts && computed.subGlobalCounts[st] !== undefined) {
+                            themesWithSub = Math.max(1, Object.keys(THEMES_ORDER).length); // ensure >=1
+                            // but better: compute from themeSubCounts counts (we created earlier)
+                            // we don't have themeSubCounts here if computed null; keep default
+                        }
+                        // fallback per-theme estimate:
+                        max = Math.max(3, Math.round((subLimitsGlobal[st] || limitesSubtemaFallback[st]) / themesWithSub));
+                    }
+                    const pct = Math.round((sum / (max || 1)) * 100);
+                    return Math.max(0, Math.min(100, pct));
+                });
+
+                // ---------- render everything ----------
+                renderBarChart(themePercents);
+                renderRadar('radar-q2', subPercGlobal, '#5B2CFF', 'rgba(91,44,255,0.22)');
+                renderRadar('radar-q4', subPercFirst, '#2E9D8F', 'rgba(46,157,143,0.22)');
+
+                document.getElementById('chart4-title').textContent = firstTheme.toUpperCase();
+                document.getElementById('chart4-subtitle').textContent = '(Exibindo: Todos os Subtemas)';
+
+            } catch (e) {
+                console.error('Erro ao carregar respostas:', e);
+                alert('Erro ao carregar dados do Supabase. Veja console para detalhes.');
+            }
+        }
+
+        // ---------- interactions ----------
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAndRenderAll();
+
+            document.querySelectorAll('#theme-list li').forEach(li => {
+                li.addEventListener('click', () => {
+                    document.querySelectorAll('#theme-list li').forEach(x => x.classList.remove('selected'));
+                    li.classList.add('selected');
+                    const themeName = li.dataset.theme;
+                    if (!lastAggregated) return;
+
+                    // compute per-theme-sub percents using computed themeSubLimits when available
+                    // try to re-run computeLimitsFromPerguntas OR reuse previously computed result
+                    // (we kept code simple: re-compute counts sync is expensive; but main code earlier computed `computed` within loadAndRenderAll.
+                    // here we will call computeLimitsFromPerguntas again to make sure we use per-theme limits)
+                    (async () => {
+                        const computed = await computeLimitsFromPerguntas();
+                        const perThemeLimits = (computed && computed.themeSubLimits && computed.themeSubLimits[themeName]) ? computed.themeSubLimits[themeName] : null;
+                        const subArr = SUBTHEMES_ORDER.map(st => {
+                            const sum = lastAggregated.subthemeSumsByTheme[themeName][st] || 0;
+                            let max = perThemeLimits ? perThemeLimits[st] : 0;
+                            if (!max) {
+                                // fallback: if perThemeLimits not available, estimate per-theme from global fallback
+                                const estimatedPerTheme = Math.max(3, Math.round((limitesSubtemaFallback[st] || 3) / THEMES_ORDER.length));
+                                max = estimatedPerTheme;
+                            }
+                            return Math.max(0, Math.min(100, Math.round((sum / (max || 1)) * 100)));
+                        });
+                        renderRadar('radar-q4', subArr, '#2E9D8F', 'rgba(46,157,143,0.22)');
+                        document.getElementById('chart4-title').textContent = themeName.toUpperCase();
+                        document.getElementById('chart4-subtitle').textContent = '(Exibindo: Todos os Subtemas)';
+                    })();
+                });
+            });
+
+            document.querySelectorAll('#subtheme-list li').forEach(li => {
+                li.addEventListener('click', () => {
+                    document.querySelectorAll('#subtheme-list li').forEach(x => x.classList.remove('selected'));
+                    li.classList.add('selected');
+                    const subName = li.dataset.sub;
+                    if (!lastAggregated) return;
+
+                    // for this subtheme across themes, use global subLimits
+                    (async () => {
+                        const computed = await computeLimitsFromPerguntas();
+                        const subLimitsGlobal = (computed && computed.subLimitsGlobal) ? computed.subLimitsGlobal : limitesSubtemaFallback;
+                        const arr = THEMES_ORDER.map(theme => {
+                            const sum = (lastAggregated.subthemeSumsByTheme[theme] && lastAggregated.subthemeSumsByTheme[theme][subName]) || 0;
+                            const max = subLimitsGlobal[subName] ? Math.round(subLimitsGlobal[subName] / Math.max(1, Object.keys(THEMES_ORDER).length)) : 3;
+                            // Explanation: to show subtema across themes we want per-theme values,
+                            // so we divide the global sub limit by number of themes (approx). If you prefer
+                            // to show absolute across themes, use global directly.
+                            const pct = Math.round((sum / (max || 1)) * 100);
+                            return Math.max(0, Math.min(100, pct));
+                        });
+
+                        // Show on radar-q2 with theme labels as axes
+                        renderRadarWithCustomAxes('radar-q2', arr, THEMES_ORDER, '#5B2CFF', 'rgba(91,44,255,0.22)');
+                        document.getElementById('chart2-title').textContent = 'MATURIDADE POR SUBTEMA';
+                        document.getElementById('chart2-subtitle').textContent = `(Exibindo: ${subName})`;
+                    })();
+                });
+            });
+
+
+        });
+    </script>
+
+
+
+</body>
+
+</html>
