@@ -18,8 +18,8 @@
     <div class="container">
 
         <header class="header-esp">
-            <h1>Pesquisa de Transporte nas Empresas</h1>
-            <p>Indicadores de Segurança Viária</p>
+            <h1>Ferramenta de Segurança Viária nas Empresas</h1>
+            <p>Dados básicos</p>
         </header>
 
         <main class="main-content">
@@ -27,7 +27,7 @@
 
                 <div class="card-info intro-card">
                     <h2>Formulário de Coleta</h2>
-                    <p>Preencha os campos abaixo para gerar seu plano de ação.</p>
+                    <p>Preencha os campos abaixo sobre a frota utilizada.</p>
                 </div>
 
                 <div id="questionnaire-container" class="questionnaire-container">
@@ -60,12 +60,10 @@
                         <div id="conditional-block-1" class="conditional-block dashed-border-top">
 
                             <div class="question-group">
-                                <h4 class="question-title">O veículo corporativo é dirigido por motorista profissional?
-                                </h4>
+                                <h4 class="question-title">A empresa faz o uso de ônibus?</h4>
                                 <div class="radio-options">
                                     <label class="custom-option-label">
-                                        <input type="radio" name="q2a_motorista_profissional" value="true"
-                                            class="sr-only">
+                                        <input type="radio" name="q8_onibus_corp" value="true" class="sr-only">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -73,8 +71,7 @@
                                         <span class="option-text">Sim</span>
                                     </label>
                                     <label class="custom-option-label">
-                                        <input type="radio" name="q2a_motorista_profissional" value="false"
-                                            class="sr-only">
+                                        <input type="radio" name="q8_onibus_corp" value="false" class="sr-only">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -83,15 +80,41 @@
                                         <span class="option-text">Não</span>
                                     </label>
                                 </div>
-
-                                <div class="input-field conditional-sub-input"
-                                    data-input-for="q2a_motorista_profissional">
-                                    <label for="qtd_motorista_profissional">Quantidade de motoristas profissionais <span
-                                            class="obrigatorio">* OBRIGATÓRIO</span></label>
-                                    <input type="number" id="qtd_motorista_profissional"
-                                        name="qtd_motorista_profissional" placeholder="0" min="0">
+                                <div class="input-field conditional-sub-input" data-input-for="q8_onibus_corp">
+                                    <label for="qtd_onibus_corp">Quantidade de Ônibus <span class="obrigatorio">*
+                                            OBRIGATÓRIO</span></label>
+                                    <input type="number" id="qtd_onibus_corp" name="qtd_onibus_corp" placeholder="0"
+                                        min="0">
                                 </div>
+                            </div>
 
+                            <div class="question-group dashed-border-top">
+                                <h4 class="question-title">A empresa faz o uso de motocicleta?</h4>
+                                <div class="radio-options">
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q9_moto_corp" value="true" class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="option-text">Sim</span>
+                                    </label>
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q9_moto_corp" value="false" class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <span class="option-text">Não</span>
+                                    </label>
+                                </div>
+                                <div class="input-field conditional-sub-input" data-input-for="q9_moto_corp">
+                                    <label for="qtd_moto_corp">Quantidade de Ônibus <span class="obrigatorio">*
+                                            OBRIGATÓRIO</span></label>
+                                    <input type="number" id="qtd_moto_corp" name="qtd_moto_corp" placeholder="0"
+                                        min="0">
+                                </div>
                             </div>
 
                             <div class="question-group dashed-border-top">
@@ -129,6 +152,42 @@
                                 </div>
 
                             </div>
+
+                            <div class="question-group dashed-border-top">
+                                <h4 class="question-title">O veículo corporativo é dirigido por motorista profissional?
+                                </h4>
+                                <div class="radio-options">
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q2a_motorista_profissional" value="true"
+                                            class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="option-text">Sim</span>
+                                    </label>
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q2a_motorista_profissional" value="false"
+                                            class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <span class="option-text">Não</span>
+                                    </label>
+                                </div>
+
+                                <div class="input-field conditional-sub-input"
+                                    data-input-for="q2a_motorista_profissional">
+                                    <label for="qtd_motorista_profissional">Quantidade de motoristas profissionais <span
+                                            class="obrigatorio">* OBRIGATÓRIO</span></label>
+                                    <input type="number" id="qtd_motorista_profissional"
+                                        name="qtd_motorista_profissional" placeholder="0" min="0">
+                                </div>
+
+                            </div>
+
 
                             <div id="conditional-block-2" class="conditional-block dashed-border-top">
 
@@ -404,6 +463,64 @@
 
 
                         <div id="conditional-block-3" class="conditional-block dashed-border-top">
+
+                            <div class="question-group">
+                                <h4 class="question-title">A empresa faz o uso de ônibus?</h4>
+                                <div class="radio-options">
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q10_onibus_terceiros" value="true" class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="option-text">Sim</span>
+                                    </label>
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q10_onibus_terceiros" value="false" class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <span class="option-text">Não</span>
+                                    </label>
+                                </div>
+                                <div class="input-field conditional-sub-input" data-input-for="q10_onibus_terceiros">
+                                    <label for="q10_onibus_terceiros">Quantidade de Ônibus <span class="obrigatorio">*
+                                            OBRIGATÓRIO</span></label>
+                                    <input type="number" id="qtd_onibus_terceiros" name="qtd_onibus_terceiros"
+                                        placeholder="0" min="0">
+                                </div>
+                            </div>
+
+                            <div class="question-group dashed-border-top">
+                                <h4 class="question-title">A empresa faz o uso de motocicleta?</h4>
+                                <div class="radio-options">
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q11_moto_terceiros" value="true" class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="option-text">Sim</span>
+                                    </label>
+                                    <label class="custom-option-label">
+                                        <input type="radio" name="q11_moto_terceiros" value="false" class="sr-only">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="option-icon" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <span class="option-text">Não</span>
+                                    </label>
+                                </div>
+                                <div class="input-field conditional-sub-input" data-input-for="q11_moto_terceiros">
+                                    <label for="qtd_onibus_terceiros">Quantidade de Motocicletas <span class="obrigatorio">*
+                                            OBRIGATÓRIO</span></label>
+                                    <input type="number" id="qtd_moto_terceiros" name="qtd_moto_terceiros"
+                                        placeholder="0" min="0">
+                                </div>
+                            </div>
 
                             <h4 class="question-title">Quais tipos de veículo de terceiros são utilizados?</h4>
                             <p class="description-text">Responda Sim/Não para cada tipo de veículo listado abaixo:</p>
@@ -720,16 +837,15 @@
                                 placeholder="0" min="0">
                         </div>
                     </div>
-                </div>
 
-                <div class="botoes-container">
-                    <button type="button" class="btn btn-voltar" onclick="window.location.href = 'index.html';">
-                        ← Voltar
-                    </button>
-                    <button type="submit" class="btn btn-continuar">>
-                        Continuar →
-                    </button>
-                </div>
+                    <div class="botoes-container">
+                        <button type="button" class="btn btn-voltar" onclick="window.location.href = 'index.html';">
+                            ← Voltar
+                        </button>
+                        <button type="submit" class="btn btn-continuar">>
+                            Continuar →
+                        </button>
+                    </div>
             </form>
         </main>
     </div>
@@ -943,11 +1059,16 @@
             const q2bIsYes = document.querySelector('input[name="q2b_motorista_nao_profissional"]:checked')?.value === 'true'; // Motorista NÃO Profissional
             const q3aIsYes = document.querySelector('input[name="q3a_caminhao"]:checked')?.value === 'true'; // Há uso de Caminhão? (Corp)
             const q3bIsYes = document.querySelector('input[name="q3b_automovel"]:checked')?.value === 'true'; // Há uso de Automóvel? (Corp)
+            const q8IsYes = document.querySelector('input[name="q8_onibus_corp"]:checked')?.value === 'true'; // Uso ônibus
+            const q9IsYes = document.querySelector('input[name="q9_moto_corp"]:checked')?.value === 'true'; // Uso moto
+
 
             // Variáveis de controle de perguntas principais (Terceirizados)
             const q4IsYes = document.querySelector('input[name="q4_veiculo_terceiros"]:checked')?.value === 'true'; // Veículo de Terceiros
             const q4aIsYes = document.querySelector('input[name="q4a_caminhao_terceiros"]:checked')?.value === 'true'; // Há uso de Caminhão? (Terc)
             const q4bIsYes = document.querySelector('input[name="q4b_automovel_terceiros"]:checked')?.value === 'true'; // Há uso de Automóvel? (Terc)
+            const q10IsYes = document.querySelector('input[name="q10_onibus_terceiros"]:checked')?.value === 'true';
+            const q11IsYes = document.querySelector('input[name="q11_moto_terceiros"]:checked')?.value === 'true';
 
 
             // Blocos condicionais principais
@@ -962,7 +1083,8 @@
             // Blocos condicionais aninhados (sub-perguntas Terceirizados)
             const subCaminhaoTercBlock = document.getElementById('sub-caminhao-block-terc');
             const subAutomovelTercBlock = document.getElementById('sub-automovel-block-terc');
-
+            const q10YesInputContainer = document.querySelector('[data-input-for="q10_onibus_terceiros"]');
+            const q11YesInputContainer = document.querySelector('[data-input-for="q11_moto_terceiros"]');
 
             /* --- LÓGICA PRINCIPAL (Q1, Q2a, Q2b - Corporativo) --- */
 
@@ -975,8 +1097,11 @@
                     // Reset Q2a, Q2b e todos os blocos e perguntas aninhadas
                     document.querySelectorAll('input[name="q2a_motorista_profissional"]').forEach(radio => radio.checked = false);
                     document.querySelectorAll('input[name="q2b_motorista_nao_profissional"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q8_onibus_corp"]').forEach(radio => radio.checked = false);
                     hideAndResetQuantityInput('q2a_motorista_profissional'); // Reset da Qtd de Profissional (NOVO)
                     hideAndResetQuantityInput('q2b_motorista_nao_profissional'); // Reset da Qtd de Não Profissional
+                    hideAndResetQuantityInput('q8_onibus_corp'); // Reset da Qtd de Onibus
+                    hideAndResetQuantityInput('q9_moto_corp'); // Reset da Qtd de Moto
 
                     if (conditionalBlock2) {
                         conditionalBlock2.classList.remove('visible');
@@ -1010,6 +1135,30 @@
                     q2bYesInputContainer.querySelector('input').setAttribute('required', 'required');
                 } else {
                     hideAndResetQuantityInput('q2b_motorista_nao_profissional');
+                }
+            }
+
+            /* --- LÓGICA ADICIONAL PARA Qtd Onibus (Q8="Sim") --- */
+            const q8YesInputContainer = document.querySelector('[data-input-for="q8_onibus_corp"]');
+            if (q8YesInputContainer) {
+                // Se o Bloco 1 estiver visível (Q1=Sim) E Q8 for "Sim"
+                if (q1IsYes && q8IsYes) {
+                    q8YesInputContainer.classList.add('visible');
+                    q8YesInputContainer.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q8_onibus_corp');
+                }
+            }
+
+            /* --- LÓGICA ADICIONAL PARA Qtd Onibus (Q9="Sim") --- */
+            const q9YesInputContainer = document.querySelector('[data-input-for="q9_moto_corp"]');
+            if (q9YesInputContainer) {
+                // Se o Bloco 1 estiver visível (Q1=Sim) E Q9 for "Sim"
+                if (q1IsYes && q9IsYes) {
+                    q9YesInputContainer.classList.add('visible');
+                    q9YesInputContainer.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q9_moto_corp');
                 }
             }
 
@@ -1089,9 +1238,33 @@
                     // Se Q4 for "Não", reseta Q4a, Q4b e os sub-blocos aninhados
                     document.querySelectorAll('input[name="q4a_caminhao_terceiros"]').forEach(radio => radio.checked = false);
                     document.querySelectorAll('input[name="q4b_automovel_terceiros"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q10_onibus_terceiros"]').forEach(radio => radio.checked = false);
+                    document.querySelectorAll('input[name="q11_moto_terceiros"]').forEach(radio => radio.checked = false);
 
                     if (subCaminhaoTercBlock) subCaminhaoTercBlock.classList.remove('visible');
                     if (subAutomovelTercBlock) subAutomovelTercBlock.classList.remove('visible');
+                    if (q10YesInputContainer) q10YesInputContainer.classList.remove('visible');
+                    if (q11YesInputContainer) q11YesInputContainer.classList.remove('visible');
+                }
+            }
+
+            /* --- LÓGICA ADICIONAL PARA Qtd Onibus (Q10="Sim") --- */
+
+            if (q10YesInputContainer) {
+                if (q4IsYes && q10IsYes) {
+                    q10YesInputContainer.classList.add('visible');
+                    q10YesInputContainer.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q10_onibus_terceiros');
+                }
+            }
+
+            if (q11YesInputContainer) {
+                if (q4IsYes && q11IsYes) {
+                    q11YesInputContainer.classList.add('visible');
+                    q11YesInputContainer.querySelector('input').setAttribute('required', 'required');
+                } else {
+                    hideAndResetQuantityInput('q11_moto_terceiros');
                 }
             }
 

@@ -88,7 +88,9 @@
         .radar-chart-svg {
             width: 100%;
             height: 100%;
-            overflow: visible
+            overflow: visible;
+            transform: translateY(-25px);
+            /* sobe o gráfico */
         }
 
         .radar-grid {
@@ -190,11 +192,17 @@
                         preserveAspectRatio="xMidYMid meet"></svg>
                 </div>
 
+                <!-- RADAR Q4: quando clicar em tema mostra seus subtemas -->
+                <div class="chart-card" id="card-q4">
+                    <h2 id="chart4-title">CARGAS PERIGOSAS</h2>
+                    <svg id="radar-q4" class="radar-chart-svg" viewBox="0 0 500 500"
+                        preserveAspectRatio="xMidYMid meet"></svg>
+                </div>
+
                 <!-- RADAR — mostra subtema selecionado / global -->
                 <div class="chart-card" id="card-q2">
                     <h2 id="chart2-title">MATURIDADE POR SUBTEMA</h2>
-                    <p id="chart2-subtitle" style="text-align:center;color:#555;margin:6px 0 12px 0">(Selecione um tema
-                        ou subtema)</p>
+
                     <svg id="radar-q2" class="radar-chart-svg" viewBox="0 0 500 500"
                         preserveAspectRatio="xMidYMid meet"></svg>
                 </div>
@@ -230,18 +238,12 @@
                     </div>
                 </div>
 
-                <!-- RADAR Q4: quando clicar em tema mostra seus subtemas -->
-                <div class="chart-card" id="card-q4">
-                    <h2 id="chart4-title">CARGAS PERIGOSAS</h2>
-                    <p id="chart4-subtitle" style="text-align:center;color:#555;margin:6px 0 12px 0">(Exibindo: Todos os
-                        Subtemas)</p>
-                    <svg id="radar-q4" class="radar-chart-svg" viewBox="0 0 500 500"
-                        preserveAspectRatio="xMidYMid meet"></svg>
-                </div>
+
 
             </div>
 
-            <button type="button" class="btn-nav-voltar" onclick="window.location.href = 'questionario.html'">← Voltar ao Questionário</button>
+            <button type="button" class="btn-nav-voltar" onclick="window.location.href = 'questionario.html'">← Voltar
+                ao Questionário</button>
         </main>
     </div>
 
@@ -259,8 +261,8 @@
 
         const SUPABASE_URL = 'https://dodiijuzedniteeagbye.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRvZGlpanV6ZWRuaXRlZWFnYnllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1MTE0MDYsImV4cCI6MjA3NTA4NzQwNn0.wxhfS6pEjtcWFvKhvwIhIjLXMBiYg7j74SVnFAxDH4s';
-        const { createClient } = supabase;
-        const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 
         // seus limites de tema (mantidos)
         const limitesTema = {
@@ -386,20 +388,55 @@
             }
 
             // axes + labels
+            // axes + labels
             let axes = '', labels = '';
             for (let i = 0; i < n; i++) {
                 const ang = -Math.PI / 2 + i * angleStep;
                 const x = cx + Math.cos(ang) * maxR;
                 const y = cy + Math.sin(ang) * maxR;
-                axes += `<line class="axis-line" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" />`;
 
+                axes += `<line class="axis-line" 
+                 x1="${cx}" y1="${cy}" 
+                 x2="${x}" y2="${y}" />`;
+
+                // posição dos textos
                 const lx = cx + Math.cos(ang) * (maxR + 30);
                 const ly = cy + Math.sin(ang) * (maxR + 30);
+
+                // alinhamento lateral
                 let anchor = 'middle';
                 if (Math.cos(ang) > 0.2) anchor = 'start';
                 if (Math.cos(ang) < -0.2) anchor = 'end';
-                labels += `<text class="axis-label" x="${lx}" y="${ly}" text-anchor="${anchor}">${SUBTHEMES_ORDER[i]}</text>`;
+
+                // ======== QUEBRA DE LINHA AUTOMÁTICA =========
+                const labelText = SUBTHEMES_ORDER[i];
+                const words = labelText.split(" ");
+                let line = "";
+                let tspans = "";
+
+                words.forEach((w, idx) => {
+                    const testLine = line + w + " ";
+                    // controla o tamanho máximo de caracteres por linha
+                    if (testLine.length > 16) {
+                        tspans += `<tspan x="${lx}" dy="14">${line.trim()}</tspan>`;
+                        line = w + " ";
+                    } else {
+                        line = testLine;
+                    }
+                    if (idx === words.length - 1) {
+                        tspans += `<tspan x="${lx}" dy="14">${line.trim()}</tspan>`;
+                    }
+                });
+
+                labels += `
+        <text class="axis-label"
+              x="${lx}" y="${ly}"
+              text-anchor="${anchor}">
+            ${tspans}
+        </text>
+    `;
             }
+
 
             // data polygon + points
             let dataPts = '', points = '';
@@ -669,71 +706,139 @@
         }
 
         // ---------- interactions ----------
+        // ---------- interactions ----------
         document.addEventListener('DOMContentLoaded', () => {
             loadAndRenderAll();
 
+            // ============================
+            // SUBTEMA PADRÃO AO CARREGAR
+            // ============================
+            const defaultSub = "Equipamentos de Proteção";
+
+            // Marcar o subtema padrão na lista
+            document.querySelectorAll('#subtheme-list li').forEach(li => {
+                if (li.dataset.sub === defaultSub) {
+                    li.classList.add('selected');
+                } else {
+                    li.classList.remove('selected');
+                }
+            });
+
+            // Título inicial do radar (MAIÚSCULO, sem "Maturidade")
+            document.getElementById('chart2-title').textContent = defaultSub.toUpperCase();
+
+            // Renderizar radar inicial com o subtema padrão
+            (async () => {
+                const computed = await computeLimitsFromPerguntas();
+                const subLimitsGlobal = computed?.subLimitsGlobal || limitesSubtemaFallback;
+
+                const arr = THEMES_ORDER.map(theme => {
+                    const sum = lastAggregated?.subthemeSumsByTheme[theme]?.[defaultSub] || 0;
+                    const max = subLimitsGlobal[defaultSub]
+                        ? Math.round(subLimitsGlobal[defaultSub] / THEMES_ORDER.length)
+                        : 3;
+
+                    return Math.max(0, Math.min(100, Math.round((sum / (max || 1)) * 100)));
+                });
+
+                renderRadarWithCustomAxes(
+                    'radar-q2',
+                    arr,
+                    THEMES_ORDER,
+                    '#5B2CFF',
+                    'rgba(91,44,255,0.22)'
+                );
+            })();
+
+
+
+            // ============================
+            // CLIQUE EM TEMA
+            // ============================
             document.querySelectorAll('#theme-list li').forEach(li => {
                 li.addEventListener('click', () => {
+
+                    // Seleção visual
                     document.querySelectorAll('#theme-list li').forEach(x => x.classList.remove('selected'));
                     li.classList.add('selected');
+
                     const themeName = li.dataset.theme;
                     if (!lastAggregated) return;
 
-                    // compute per-theme-sub percents using computed themeSubLimits when available
-                    // try to re-run computeLimitsFromPerguntas OR reuse previously computed result
-                    // (we kept code simple: re-compute counts sync is expensive; but main code earlier computed `computed` within loadAndRenderAll.
-                    // here we will call computeLimitsFromPerguntas again to make sure we use per-theme limits)
                     (async () => {
                         const computed = await computeLimitsFromPerguntas();
-                        const perThemeLimits = (computed && computed.themeSubLimits && computed.themeSubLimits[themeName]) ? computed.themeSubLimits[themeName] : null;
+                        const perThemeLimits = computed?.themeSubLimits?.[themeName] || null;
+
                         const subArr = SUBTHEMES_ORDER.map(st => {
                             const sum = lastAggregated.subthemeSumsByTheme[themeName][st] || 0;
                             let max = perThemeLimits ? perThemeLimits[st] : 0;
+
                             if (!max) {
-                                // fallback: if perThemeLimits not available, estimate per-theme from global fallback
-                                const estimatedPerTheme = Math.max(3, Math.round((limitesSubtemaFallback[st] || 3) / THEMES_ORDER.length));
+                                const estimatedPerTheme = Math.max(
+                                    3,
+                                    Math.round((limitesSubtemaFallback[st] || 3) / THEMES_ORDER.length)
+                                );
                                 max = estimatedPerTheme;
                             }
+
                             return Math.max(0, Math.min(100, Math.round((sum / (max || 1)) * 100)));
                         });
+
                         renderRadar('radar-q4', subArr, '#2E9D8F', 'rgba(46,157,143,0.22)');
+
+                        // 🔥 TÍTULO DINÂMICO DO GRÁFICO DE TEMAS
                         document.getElementById('chart4-title').textContent = themeName.toUpperCase();
-                        document.getElementById('chart4-subtitle').textContent = '(Exibindo: Todos os Subtemas)';
+
+                        // 🔥 TÍTULO DO GRÁFICO DE SUBTEMA VOLTA AO PADRÃO
+                        document.getElementById('chart2-title').textContent = "MATURIDADE POR SUBTEMA";
                     })();
                 });
             });
 
+
+
+            // ============================
+            // CLIQUE EM SUBTEMA
+            // ============================
             document.querySelectorAll('#subtheme-list li').forEach(li => {
                 li.addEventListener('click', () => {
+
+                    // Seleção visual
                     document.querySelectorAll('#subtheme-list li').forEach(x => x.classList.remove('selected'));
                     li.classList.add('selected');
+
                     const subName = li.dataset.sub;
                     if (!lastAggregated) return;
 
-                    // for this subtheme across themes, use global subLimits
                     (async () => {
                         const computed = await computeLimitsFromPerguntas();
-                        const subLimitsGlobal = (computed && computed.subLimitsGlobal) ? computed.subLimitsGlobal : limitesSubtemaFallback;
+                        const subLimitsGlobal = computed?.subLimitsGlobal || limitesSubtemaFallback;
+
                         const arr = THEMES_ORDER.map(theme => {
-                            const sum = (lastAggregated.subthemeSumsByTheme[theme] && lastAggregated.subthemeSumsByTheme[theme][subName]) || 0;
-                            const max = subLimitsGlobal[subName] ? Math.round(subLimitsGlobal[subName] / Math.max(1, Object.keys(THEMES_ORDER).length)) : 3;
-                            // Explanation: to show subtema across themes we want per-theme values,
-                            // so we divide the global sub limit by number of themes (approx). If you prefer
-                            // to show absolute across themes, use global directly.
-                            const pct = Math.round((sum / (max || 1)) * 100);
-                            return Math.max(0, Math.min(100, pct));
+                            const sum = lastAggregated.subthemeSumsByTheme[theme]?.[subName] || 0;
+                            const max = subLimitsGlobal[subName]
+                                ? Math.round(subLimitsGlobal[subName] / THEMES_ORDER.length)
+                                : 3;
+
+                            return Math.max(0, Math.min(100, Math.round((sum / (max || 1)) * 100)));
                         });
 
-                        // Show on radar-q2 with theme labels as axes
-                        renderRadarWithCustomAxes('radar-q2', arr, THEMES_ORDER, '#5B2CFF', 'rgba(91,44,255,0.22)');
-                        document.getElementById('chart2-title').textContent = 'MATURIDADE POR SUBTEMA';
-                        document.getElementById('chart2-subtitle').textContent = `(Exibindo: ${subName})`;
+                        renderRadarWithCustomAxes(
+                            'radar-q2',
+                            arr,
+                            THEMES_ORDER,
+                            '#5B2CFF',
+                            'rgba(91,44,255,0.22)'
+                        );
+
+                        // 🔥 TÍTULO DO SUBTEMA EM MAIÚSCULO
+                        document.getElementById('chart2-title').textContent = subName.toUpperCase();
                     })();
                 });
             });
 
-
         });
+
     </script>
 
 

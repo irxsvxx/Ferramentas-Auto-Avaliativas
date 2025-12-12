@@ -880,9 +880,12 @@
 
                 // Tipos de Veículo Corp. (Uso)
                 uso_caminhao: toBool(formData.q3a_caminhao),
-                uso_onibus: null, // Ausente no HTML
+                uso_onibus: toBool(formData.q8_onibus_corp), // Ausente no HTML
                 uso_automovel: toBool(formData.q3b_automovel),
-                uso_moto: null, // Ausente no HTML
+                uso_moto: toBool(formData.q9_moto_corp), // Ausente no HTML
+                qtd_onibus_corp: toIntOrZero(formData.qtd_onibus_corp),
+                qtd_moto_corp: toIntOrZero(formData.qtd_moto_corp),
+                
 
                 // Caminhão - Cargas
                 uso_carga_perigosa_camin_corp: toBool(formData.q3aa_caminhao_cargas_perigosas),
@@ -904,8 +907,11 @@
             const veiculo_terceirizado = {
                 // Tipos de Veículo Terceiro (Uso)
                 uso_caminhao: toBool(formData.q4a_caminhao_terceiros),
-                uso_onibus: null, // Ausente no HTML
+                uso_onibus: toBool(formData.q10_onibus_terceiros), // Ausente no HTML
                 uso_automovel: toBool(formData.q4b_automovel_terceiros),
+                uso_moto: toBool(formData.q11_moto_terceiros),
+                qtd_onibus_terc: toIntOrZero(formData.qtd_onibus_terceiros),
+                qtd_moto_terc: toIntOrZero(formData.qtd_moto_terceiros),
 
                 // Caminhão Terceiro - Cargas
                 uso_carga_perigosa_caminhao_terc: toBool(formData.q4aa_caminhao_terc_cargas_perigosas),
@@ -920,6 +926,7 @@
                 qtd_carga_nao_perigosa_autom_terc: toIntOrZero(formData.qtd_automovel_terc_cargas_nao_perigosas),
                 uso_passag_autom_terc: toBool(formData.q4bc_automovel_terc_passageiros),
                 qtd_passag_autom_terc: toIntOrZero(formData.qtd_automovel_terc_passageiros)
+                
             };
 
             return { transporte_uso_veiculo, veiculo_corporativo, veiculo_terceirizado };
